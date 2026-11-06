@@ -28,7 +28,7 @@ php bin/mageos new ../preview \
   --format=json
 ```
 
-Interactive runs show a review before confirmation. JSON output is better for CI or scripts.
+Interactive runs show a review before generation. JSON output is better for CI or scripts.
 
 ## Select a release
 

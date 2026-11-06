@@ -35,7 +35,7 @@ Choose a new, empty target directory:
 php bin/mageos new ../my-mageos-project
 ```
 
-The wizard asks for the release, starting profile, profile-group choices, feature sets, layers, and optional add-ons. Review the plan before confirming generation.
+The wizard asks for the release, starting profile, profile-group choices, feature sets, layers, and optional add-ons, then displays the plan before generating the project.
 
 For a first project, begin with the default choices. They provide a useful baseline that you can compare with a later custom composition.
 
