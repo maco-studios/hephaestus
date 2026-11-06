@@ -60,7 +60,7 @@ jobs:
           name: coverage-${{ github.run_id }}
           path: .coverage
       - name: Generate coverage badge
-        run: php .github/scripts/coverage-badge.php .coverage/coverage.xml .github/assets/coverage.svg
+        run: mkdir -p .github/assets && php .github/scripts/coverage-badge.php .coverage/coverage.xml .github/assets/coverage.svg
       - name: Commit coverage badge
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
