@@ -53,5 +53,7 @@ it('renders useful generation output when terminal decoration is disabled', func
 
     expect($output->fetch())
         ->toContain('Installing Composer dependencies')
+        ->toContain('Creating Mage-OS project')
+        ->toContain('Target: current directory')
         ->not->toContain("\033[");
 });

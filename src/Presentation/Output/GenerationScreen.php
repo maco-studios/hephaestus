@@ -35,6 +35,15 @@ final class GenerationScreen
 
     public function start(): void
     {
+        if (!$this->supportsRedraw()) {
+            $this->outputWriter->writeln('<fg=cyan;options=bold>Creating Mage-OS project</>');
+            $this->outputWriter->writeln('<fg=gray>Target: ' . ($this->target ?? 'current directory') . '</>');
+            $this->outputWriter->writeln('<fg=cyan>' . str_repeat('─', max(48, min(120, (new Terminal())->getWidth()))) . '</>');
+            $this->renderedLines = 1;
+
+            return;
+        }
+
         $this->render();
     }
 
@@ -42,6 +51,12 @@ final class GenerationScreen
     {
         $this->stage = $stage;
         $this->append($stage);
+        if (!$this->supportsRedraw()) {
+            $this->outputWriter->writeln('<fg=yellow>↳ ' . $stage . '</>');
+
+            return;
+        }
+
         $this->render();
     }
 
@@ -56,14 +71,23 @@ final class GenerationScreen
                 }
 
                 $this->append($line);
+                if (!$this->supportsRedraw()) {
+                    $this->outputWriter->writeln('<fg=gray>' . $line . '</>');
+                }
             }
         }
-        $this->render();
+        if ($this->supportsRedraw()) {
+            $this->render();
+        }
     }
 
     public function finish(string $stage = 'Generation complete'): void
     {
         $this->stage = $stage;
+        if (!$this->supportsRedraw()) {
+            return;
+        }
+
         $this->settleOutput();
     }
 
@@ -90,7 +114,7 @@ final class GenerationScreen
             $lines[] = '';
         }
 
-        $decorated = $this->outputWriter->isDecorated();
+        $decorated = $this->supportsRedraw();
         if ($this->renderedLines > 0 && $decorated) {
             $this->outputWriter->write("\033[{$this->renderedLines}A");
         }
@@ -103,7 +127,7 @@ final class GenerationScreen
 
     private function settleOutput(): void
     {
-        if ($this->renderedLines === 0 || !$this->outputWriter->isDecorated()) {
+        if ($this->renderedLines === 0 || !$this->supportsRedraw()) {
             return;
         }
 
@@ -114,6 +138,17 @@ final class GenerationScreen
         }
         $this->outputWriter->write("\033[0J");
         $this->renderedLines = count($this->output);
+    }
+
+    private function supportsRedraw(): bool
+    {
+        if ($this->outputWriter->isDecorated()) {
+            return true;
+        }
+
+        return defined('STDOUT')
+            && function_exists('stream_isatty')
+            && stream_isatty(STDOUT);
     }
 
     private function formatOutputLine(string $line, int $width): string
