@@ -25,13 +25,17 @@ use MageOsInstaller\Infrastructure\Composer\ComposerInstaller;
 use MageOsInstaller\Infrastructure\Composer\ComposerJsonRenderer;
 use MageOsInstaller\Infrastructure\Filesystem\ProjectWriter;
 use MageOsInstaller\Infrastructure\Process\ProcessRunner;
+use MageOsInstaller\Presentation\Output\ApplicationLogo;
 use Symfony\Component\Console\Application;
 
 final class ConsoleApplication extends Application
 {
+    private readonly ApplicationLogo $logo;
+
     public function __construct()
     {
-        parent::__construct("Mage-OS Installer", "0.0.3");
+        parent::__construct("Mage-OS Installer", "0.0.4");
+        $this->logo = new ApplicationLogo();
         $definitions = dirname(__DIR__, 2) . '/resources/definitions';
         $catalog = (new CatalogRepository(new DefinitionLoader($definitions)))->current();
         $resolver = new SelectionResolver($catalog);
@@ -49,22 +53,7 @@ final class ConsoleApplication extends Application
 
     public function getLongVersion(): string
     {
-        $content = "<fg=red>
-                ███               ██
-             ██      ██       ██      ██
-          █              █ █              █
-      ██                                     ██
-   ██                                           ██
-█               ███              ████             ██
-█            ██████   █       █████    █       █████
-█         █████████      █ ████████       ██████████</>     %s
-<fg=red>█        ██████████       █████████        █████████</>          %s
-<fg=red>█        ██████████       █████████        █████████
- ██      ███████████      ████████ ██      ████████
-     █   █████        █   █████        █   █████
-        ███              ███              ███</>
-         ";
-        return \sprintf($content, $this->getName(), $this->getVersion());
+        return $this->logo->render($this->getName(), $this->getVersion());
     }
 
     protected function getDefaultCommands(): array

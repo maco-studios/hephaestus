@@ -15,9 +15,11 @@ namespace MageOsInstaller\Presentation\Output;
 
 final class ApplicationLogo
 {
-    public function render(): string
+    public function render(string $title = 'MAGE-OS', ?string $version = null): string
     {
-        return <<<'LOGO'
+        $versionSuffix = $version === null ? '' : ' ' . $version;
+
+        return sprintf(<<<'LOGO'
 <fg=red>
                 ███               ██
              ██      ██       ██      ██
@@ -26,15 +28,15 @@ final class ApplicationLogo
    ██                                           ██
 █               ███              ████             ██
 █            ██████   █       █████    █       █████
-█         █████████      █ ████████       ██████████</>     %s
-<fg=red>█        ██████████       █████████        █████████</>          %s
+█         █████████      █ ████████       ██████████</>
+<fg=red>█        ██████████       █████████        █████████</>
 <fg=red>█        ██████████       █████████        █████████
  ██      ███████████      ████████ ██      ████████
      █   █████        █   █████        █   █████
         ███              ███              ███</>
-<fg=cyan>                 MAGE-OS</>
+<fg=cyan>                 %s%s</>
 <fg=gray>  Community-driven commerce project installer</>
 
-LOGO;
+LOGO, $title, $versionSuffix);
     }
 }

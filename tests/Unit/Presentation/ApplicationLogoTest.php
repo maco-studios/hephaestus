@@ -22,3 +22,9 @@ it('renders the Mage-OS terminal wordmark and tagline', function (): void {
         ->toContain('<fg=cyan>')
         ->toContain('</>');
 });
+
+it('renders a custom title and version', function (): void {
+    $logo = (new ApplicationLogo())->render('Mage-OS Installer', '1.2.3');
+
+    expect($logo)->toContain('Mage-OS Installer 1.2.3');
+});
