@@ -6,13 +6,14 @@
 mageos new [options] [target]
 ```
 
-Creates a tailored Mage-OS project. The target defaults to the current directory.
+Creates a tailored Mage-OS project. In interactive mode, the first question asks for a Composer project name in `vendor/project-name` format. When the target is omitted or `.`, its project-name segment becomes the output folder.
 
 ### Options
 
 | Option | Meaning |
 | --- | --- |
 | `--release=RELEASE` | Mage-OS release to use. |
+| `--name=VENDOR/PROJECT` | Composer project name; the project segment becomes the folder when the target is `.`. |
 | `--distribution=DISTRIBUTION` | Distribution name; defaults to `standard`. |
 | `--profile=PROFILE` | Starting profile. |
 | `--mode=MODE` | Composition mode, normally `additive` or `subtractive`. |
@@ -24,6 +25,7 @@ Creates a tailored Mage-OS project. The target defaults to the current directory
 | `--format=text|json` | Select human-readable or JSON output. |
 | `--force` | Declared CLI option for forced generation. Current target safety checks still reject non-empty targets unless force is propagated by the command implementation. |
 | `-n, --no-interaction` | Do not ask wizard questions. |
+| `-v`, `-vv`, `-vvv` | Increase Composer/process diagnostics. `-vvv` streams the underlying Composer commands and output. |
 
 Inspect the installed command for the authoritative option list:
 
@@ -62,6 +64,8 @@ Additive mode starts from `mage-os/project-minimal-edition` and adds selected pa
 The resolver re-applies mandatory dependencies and removes conflicting disable requests when a selected feature requires them.
 
 ## Output statuses
+
+Text generation uses a colored progress bar for the composition, Mage-OS base download, Composer manifest, and dependency installation stages. JSON output remains free of progress decorations. Add `-vvv` when diagnosing a Composer or repository problem; it streams the child Composer process with `[composer]` labels.
 
 The text and JSON output can report:
 

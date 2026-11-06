@@ -5,12 +5,15 @@
 Supply the choices as options and disable prompts:
 
 ```bash
-php bin/mageos new ../my-mageos-project \
+php bin/mageos new . \
   --no-interaction \
+  --name=acme/my-mageos-project \
   --profile=mageos-minimal \
   --profile-group=theme:luma \
   --no-install
 ```
+
+The project name must use Composer's `vendor/project-name` format. When the target is `.`, the project-name segment is used as the output folder and the full value becomes the generated Composer package name. An explicit target path remains the exact output directory.
 
 Repeat array options such as `--profile-group`, `--disable-set`, and `--enable-addon` for multiple values.
 
