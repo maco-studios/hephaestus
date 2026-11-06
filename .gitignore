@@ -1,0 +1,12 @@
+/vendor/
+/reference/
+/var/
+/.phpunit.cache/
+/tests/.generated/*/vendor/
+/tests/.generated/full/
+/tests/.generated/lite/
+/tests/.generated/headless/
+/tests/.generated/minimal/
+/tests/.generated/custom-hyva/
+/tests/.generated/mageos-minimal/
+.DS_Store

@@ -1,0 +1,59 @@
+{
+    "name": "maco-studios/mage-os-installer",
+    "description": "An interactive Mage-OS project installer and Composer project factory.",
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "composer/semver": ">=3.6",
+        "laravel/prompts": ">=0.3.26",
+        "symfony/console": ">=8.1.11",
+        "symfony/process": ">=8.1.10",
+        "symfony/yaml": ">=8.1.11"
+    },
+    "require-dev": {
+        "ergebnis/composer-normalize": "^2.56",
+        "ergebnis/license": "^2.9",
+        "friendsofphp/php-cs-fixer": "^3.95.28",
+        "mockery/mockery": "^1.6.15",
+        "pestphp/pest": "^5.3.5",
+        "rector/rector": "^2.8.4"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "MageOsInstaller\\": "src/"
+        }
+    },
+    "bin": [
+        "bin/mageos"
+    ],
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true,
+            "pestphp/pest-plugin": true
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "@composer normalize"
+        ],
+        "post-update-cmd": [
+            "@composer normalize"
+        ],
+        "post-create-project-cmd": "MageOsInstaller\\Infrastructure\\Composer\\BootstrapScript::postCreateProject",
+        "ci:check": [
+            "@lint",
+            "@rector",
+            "@normalize",
+            "@test"
+        ],
+        "lint": "php-cs-fixer fix --dry-run --diff",
+        "lint:fix": "php-cs-fixer fix",
+        "normalize": "composer normalize --dry-run",
+        "normalize:fix": "composer normalize",
+        "rector": "rector process --dry-run",
+        "rector:fix": "rector process",
+        "test": "pest"
+    }
+}
