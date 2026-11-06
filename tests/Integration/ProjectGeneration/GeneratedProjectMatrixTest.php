@@ -84,7 +84,9 @@ it('writes multiple visible Mage-OS project compositions under tests/.generated'
         expect($outputRoot . '/' . $name . '/app')->toBeDirectory()
             ->and($outputRoot . '/' . $name . '/bin')->toBeDirectory()
             ->and($outputRoot . '/' . $name . '/pub')->toBeDirectory()
-            ->and($outputRoot . '/' . $name . '/setup')->toBeDirectory()
+            ->and($outputRoot . '/' . $name . '/dev')->toBeDirectory()
+            ->and($outputRoot . '/' . $name . '/lib')->toBeDirectory()
+            ->and($outputRoot . '/' . $name . '/var')->toBeDirectory()
             ->and($outputRoot . '/' . $name . '/vendor')->toBeDirectory()
             ->and($outputRoot . '/' . $name . '/mageos-installer.json')->not->toBeFile()
             ->and($outputRoot . '/' . $name . '/MAGEOS_SETUP.md')->not->toBeFile();
@@ -94,6 +96,8 @@ it('writes multiple visible Mage-OS project compositions under tests/.generated'
     $fullJson = (string) file_get_contents($outputRoot . '/full/composer.json');
     expect($fullJson)->toStartWith("{\n    \"name\":");
     expect($full['require-dev'])->toHaveKey('phpunit/phpunit')
+        ->and($full['require'])->toHaveKey('mage-os/module-contact')
+        ->and($full['require'])->not->toHaveKey('mage-os/product-community-edition')
         ->and($full['autoload']['psr-0'][''])->toContain('generated/code/')
         ->and($full['autoload']['exclude-from-classmap'])->toContain('**/Test/Unit/**')
         ->and($full['extra']['magento-force'])->toBe('override');
