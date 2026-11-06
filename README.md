@@ -1,87 +1,85 @@
 # Mage-OS Installer
 
-Interactive project selection and Composer generation for Mage-OS.
+[![Coverage](.github/assets/coverage.svg)](https://github.com/maco-studios/mage-os-installer/actions/workflows/tests.yml)
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?logo=buymeacoffee&logoColor=000000&style=for-the-badge)](https://buymeacoffee.com/macosauresx)
 
-> 🚧 Under construction. Mage-OS Installer is pre-1.0 and its catalog, CLI, and generated project conventions are still evolving. Expect changes between releases and report broken compositions through [GitHub Issues](https://github.com/maco-studios/mage-os-installer/issues).
+Create a tailored, standalone Mage-OS project through an interactive terminal wizard.
 
-Mage-OS Installer turns project composition into a terminal wizard. Choose a release, profile, theme, checkout, search engine, feature sets, layers, and add-ons; the installer generates a standalone Mage-OS project with a Composer dependency graph scoped to those choices.
+> Mage-OS Installer is pre-1.0. Catalog entries, CLI options, and generated-project conventions may change between releases.
 
-## Quickstart
+## Requirements
+
+- PHP 8.2+
+- Composer 2.x
+- Network access to the configured Composer repositories
+- Credentials for private repositories used by selected add-ons
+
+## Create a project
+
+Run this from the directory where you want the project:
+
+```bash
+composer create-project maco-studios/mage-os-installer
+```
+
+The wizard asks for the project name, Mage-OS release, profile, theme, checkout, search engine, feature sets, add-ons, and whether to install dependencies. It then generates the project and shows the final project path.
+
+To choose the bootstrap directory explicitly:
 
 ```bash
 composer create-project maco-studios/mage-os-installer my-mageos-project
 ```
 
-The wizard reviews your selections, generates the project tree, writes a custom `composer.json`, and can install the selected dependencies.
+Answer “No” to dependency installation if you want to review the generated `composer.json` first. Run `composer install` inside the generated project when ready.
 
-For local development:
+## Automation
 
-```bash
-composer install
-php bin/mageos new my-mageos-project
-```
-
-Useful non-interactive examples:
+Use the CLI directly for scripted runs:
 
 ```bash
-php bin/mageos new my-mageos-project --no-interaction --dry-run --format=json
-php bin/mageos new my-mageos-project --profile=mageos-minimal --no-install
-php bin/mageos new my-mageos-project --profile-group=theme:hyva --enable-addon=hyva --no-install
+php bin/mageos new my-mageos-project \
+  --profile=mageos-minimal \
+  --no-install
 ```
 
-Run `php bin/mageos new --help` for the complete option list.
+Inspect a composition without writing files:
 
-## Requirements
+```bash
+php bin/mageos new my-mageos-project \
+  --no-interaction \
+  --dry-run \
+  --format=json
+```
 
-- PHP 8.2 or newer
-- Composer 2.x
-- Network access to the configured Composer repositories when installing dependencies
-- Credentials for private repositories required by selected add-ons
+Run `php bin/mageos new --help` for all options, including releases, profile groups, disabled sets, and add-ons.
 
-## Project composition
+## What it configures
 
-The wizard composes the generated project from the catalog in `resources/definitions/`:
+The wizard composes a standalone Mage-OS project from catalog definitions covering:
 
-- Profiles provide starting points such as Full, Lite, Headless, and Minimal.
-- Profile groups represent choices such as theme, checkout, and search engine.
-- Sets group related Mage-OS modules and optional feature families.
-- Layers provide cross-cutting capabilities such as GraphQL, Web API, message queue, and Hyvä compatibility.
-- Add-ons integrate third-party packages and repositories.
+- starter profiles such as Full, Lite, Headless, and Minimal;
+- themes, checkout methods, and search engines;
+- feature sets and cross-cutting layers;
+- optional third-party add-ons and repositories.
 
-Subtractive profiles start with the available stock module catalog and replace disabled packages. Additive profiles start with a minimal project and require only the selected module families. The generated `composer.json` reflects the resolved selection instead of depending on an aggregate edition package.
+The generated `composer.json` contains the resolved dependencies and replacements for your selections.
+
+## Preview
+
+[Watch the installer preview](.github/assets/video/preview.mp4)
 
 ## Documentation
 
-The documentation follows the [Diátaxis](https://diataxis.fr/) framework:
-
 - [Documentation home](docs/README.md)
-- [Tutorial: create a project](docs/tutorial-create-a-project.md)
+- [Create your first project](docs/tutorial-create-a-project.md)
 - [How-to guides](docs/how-to.md)
 - [CLI and catalog reference](docs/reference.md)
 - [Architecture and composition](docs/explanation.md)
-- [Contributor development guide](docs/contributing.md)
-- [Contributing](CONTRIBUTING.md)
-- [Code of Conduct](CODE_OF_CONDUCT.md)
-
-## Development
-
-```bash
-composer install
-vendor/bin/pest
-composer lint
-php bin/mageos list
-```
-
-The project-generation integration tests cover representative profiles, themes, checkout modes, search engines, tools, add-ons, releases, and additive/subtractive selections. Generated projects are written under `tests/.generated/` and ignored by Git.
 
 ## Contributing
 
-Bug reports, catalog corrections, and compatibility improvements are welcome. Include the selected profile, release, distribution, relevant Composer output, and your PHP and Composer versions. Never commit credentials, `auth.json`, or generated `vendor/` trees.
-
-## Credits and attribution
-
-The project-selection concepts, catalog structure, and terminology were informed by [Cresset Tools MageOS Maker](https://github.com/cresset-tools/mageos-maker). Mage-OS Installer is an independent CLI implementation and is not affiliated with or endorsed by Cresset Tools unless explicitly stated.
+Report bugs and catalog corrections through [GitHub Issues](https://github.com/maco-studios/mage-os-installer/issues). Do not commit credentials, `auth.json`, generated `vendor/` directories, or generated projects.
 
 ## License
 
-Mage-OS Installer is available under the [MIT License](LICENSE).
+MIT — see [LICENSE](LICENSE).
