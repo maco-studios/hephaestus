@@ -36,7 +36,9 @@ final class BootstrapScript
 
         try {
             $previousDisplayTarget = getenv('MAGEOS_DISPLAY_TARGET');
+            $previousImplicitBootstrap = getenv('MAGEOS_IMPLICIT_BOOTSTRAP');
             putenv('MAGEOS_DISPLAY_TARGET=' . $workingDirectory);
+            putenv('MAGEOS_IMPLICIT_BOOTSTRAP=' . ($implicitBootstrapDirectory ? '1' : '0'));
             $command = escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg($binary) . ' new ' . escapeshellarg($stagingDirectory);
             try {
                 passthru($command, $exitCode);
@@ -45,6 +47,11 @@ final class BootstrapScript
                     putenv('MAGEOS_DISPLAY_TARGET');
                 } else {
                     putenv('MAGEOS_DISPLAY_TARGET=' . $previousDisplayTarget);
+                }
+                if ($previousImplicitBootstrap === false) {
+                    putenv('MAGEOS_IMPLICIT_BOOTSTRAP');
+                } else {
+                    putenv('MAGEOS_IMPLICIT_BOOTSTRAP=' . $previousImplicitBootstrap);
                 }
             }
             if ($exitCode !== 0) {

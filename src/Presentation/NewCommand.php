@@ -85,7 +85,7 @@ final class NewCommand extends Command
             }
             $plan = $this->factory->plan($selection);
             $target ??= $this->targetDirectory($input, $selection);
-            $displayTarget = getenv('MAGEOS_DISPLAY_TARGET') ?: $target->path;
+            $displayTarget = $this->displayTarget($selection, $target);
 
             $screen = $this->generationScreen($input, $output, $displayTarget);
             $screen?->start();
@@ -159,6 +159,16 @@ final class NewCommand extends Command
         }
 
         return new TargetDirectory($this->absolutePath($requestedTarget));
+    }
+
+    private function displayTarget(ProjectSelection $selection, TargetDirectory $target): string
+    {
+        $displayTarget = getenv('MAGEOS_DISPLAY_TARGET') ?: $target->path;
+        if (getenv('MAGEOS_IMPLICIT_BOOTSTRAP') === '1' && $selection->projectName !== null) {
+            return dirname($displayTarget) . '/' . new ProjectName($selection->projectName)->directoryName();
+        }
+
+        return $displayTarget;
     }
 
     private function generationScreen(InputInterface $input, OutputInterface $output, string $target): ?GenerationScreen
