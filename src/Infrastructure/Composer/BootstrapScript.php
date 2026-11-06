@@ -28,6 +28,7 @@ final class BootstrapScript
             return;
         }
 
+        $implicitBootstrapDirectory = self::isImplicitBootstrapDirectory($event, $workingDirectory);
         $stagingDirectory = dirname($workingDirectory) . '/.mageos-project-' . bin2hex(random_bytes(8));
         if (!mkdir($stagingDirectory, 0775, true) && !is_dir($stagingDirectory)) {
             throw new RuntimeException("Unable to create staging directory: {$stagingDirectory}");
@@ -50,13 +51,16 @@ final class BootstrapScript
                 throw new RuntimeException("Mage-OS project generation failed with exit code {$exitCode}");
             }
 
-            if (self::isImplicitBootstrapDirectory($event, $workingDirectory)) {
+            if ($implicitBootstrapDirectory) {
                 self::moveToProjectDirectory($workingDirectory, $stagingDirectory);
             } else {
                 self::replaceContents($workingDirectory, $stagingDirectory);
             }
         } catch (Throwable $exception) {
             self::removePath($stagingDirectory);
+            if ($implicitBootstrapDirectory) {
+                self::removePath($workingDirectory);
+            }
             throw $exception;
         }
     }
