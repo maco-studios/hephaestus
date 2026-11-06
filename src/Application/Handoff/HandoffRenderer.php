@@ -19,9 +19,17 @@ final class HandoffRenderer
 {
     public function text(string $target, array $plan, InstallationResult $result): string
     {
+        if (in_array($result->status, ['installed', 'generated', 'deferred'], true)) {
+            return $this->readyPanel($target, $result);
+        }
+
         $selection = $plan['selection'];
         $status = strtoupper($result->status);
-        $symbol = $result->isSuccessful() ? '<fg=green>✔</>' : '<fg=red>✖</>';
+        $symbol = match ($result->status) {
+            'installed', 'generated', 'deferred' => '<fg=green>✔</>',
+            'planned' => '<fg=cyan>➜</>',
+            default => '<fg=red>✖</>',
+        };
         $lines = [
             '',
             '<info>╭─ Mage-OS project ' . $status . ' ─────────────────────────────╮</info>',
@@ -46,17 +54,25 @@ final class HandoffRenderer
         }
 
         $lines[] = '<info>╰──────────────────────────────────────────────────────╯</info>';
-        if ($result->isSuccessful()) {
-            $lines[] = '';
-            $lines[] = '<fg=green>🎉 Your Mage-OS project is ready!</>';
-            $lines[] = '  Start developing:';
-            $lines[] = '    cd ' . $target;
-            if ($result->status !== 'installed') {
-                $lines[] = '    composer install';
-            }
-            $lines[] = '';
-            $lines[] = '  Enjoyed the installer? Star the repository: <href=https://github.com/maco-studios/mage-os-installer>github.com/maco-studios/mage-os-installer</>';
-        }
+        return implode("\n", $lines) . "\n";
+    }
+
+    private function readyPanel(string $target, InstallationResult $result): string
+    {
+        $command = $result->status === 'installed' ? 'bin/magento --version' : 'composer install';
+        $lines = [
+            '',
+            '<fg=green;options=bold>✦ Application ready</>',
+            '<fg=cyan>→</> You can start your Mage-OS development using:',
+            '',
+            '<fg=yellow>1.</> <fg=cyan>cd</> ' . $target,
+            '<fg=yellow>2.</> <fg=cyan>' . $command . '</>',
+            '',
+            '<fg=magenta>✦</> Build something amazing with Mage-OS!',
+            '',
+            '<fg=yellow>★</> Enjoyed the installer? Star our repository:',
+            '   <href=https://github.com/maco-studios/mage-os-installer>github.com/maco-studios/mage-os-installer</>',
+        ];
 
         return implode("\n", $lines) . "\n";
     }

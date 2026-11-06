@@ -33,8 +33,18 @@ final class BootstrapScript
         }
 
         try {
+            $previousDisplayTarget = getenv('MAGEOS_DISPLAY_TARGET');
+            putenv('MAGEOS_DISPLAY_TARGET=' . $workingDirectory);
             $command = escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg($binary) . ' new ' . escapeshellarg($stagingDirectory);
-            passthru($command, $exitCode);
+            try {
+                passthru($command, $exitCode);
+            } finally {
+                if ($previousDisplayTarget === false) {
+                    putenv('MAGEOS_DISPLAY_TARGET');
+                } else {
+                    putenv('MAGEOS_DISPLAY_TARGET=' . $previousDisplayTarget);
+                }
+            }
             if ($exitCode !== 0) {
                 throw new RuntimeException("Mage-OS project generation failed with exit code {$exitCode}");
             }

@@ -22,6 +22,7 @@ use MageOsInstaller\Domain\Selection\ProjectName;
 use MageOsInstaller\Domain\Selection\SelectionResolver;
 use MageOsInstaller\Infrastructure\Filesystem\TargetDirectory;
 use MageOsInstaller\Presentation\Output\ApplicationLogo;
+use MageOsInstaller\Presentation\Output\GenerationScreen;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -81,24 +82,20 @@ final class NewCommand extends Command
             }
             $plan = $this->factory->plan($selection);
             $target ??= $this->targetDirectory($input, $selection);
-            if (!$input->getOption('dry-run') && $input->isInteractive()) {
-                $output->writeln($this->handoff->text($target->path, $plan, new \MageOsInstaller\Domain\Installation\InstallationResult('planned')));
-                if (!\Symfony\Component\Console\Question\ConfirmationQuestion::class) {
-                    return Command::FAILURE;
-                }
-                $helper = $this->getHelper('question');
-                $question = new \Symfony\Component\Console\Question\ConfirmationQuestion('Generate this project? [y/N] ', false);
-                if (!$helper->ask($input, $output, $question)) {
-                    return 3;
-                }
-            }
+            $displayTarget = getenv('MAGEOS_DISPLAY_TARGET') ?: $target->path;
 
-            $progress = $this->progressBar($input, $output, !(bool) $input->getOption('no-install'));
-            $onStep = $progress === null ? null : function (string $message) use ($progress): void {
-                $progress->setMessage($message);
-                $progress->advance();
-            };
-            $onProcessOutput = $this->verboseOutput($input, $output);
+            $screen = $this->generationScreen($input, $output);
+            $progress = $screen === null ? $this->progressBar($input, $output, !(bool) $input->getOption('no-install')) : null;
+            $screen?->start();
+            $onStep = $screen !== null
+                ? $screen->step(...)
+                : ($progress === null ? null : function (string $message) use ($progress): void {
+                    $progress->setMessage($message);
+                    $progress->advance();
+                });
+            $onProcessOutput = $screen !== null
+                ? $screen->processOutput(...)
+                : $this->verboseOutput($input, $output);
             $result = $this->factory->create(
                 $target,
                 $selection,
@@ -111,10 +108,11 @@ final class NewCommand extends Command
                 $progress->finish();
                 $output->writeln('');
             }
+            $screen?->finish($result->isSuccessful() ? 'Generation complete' : 'Generation failed');
             if ($input->getOption('format') === 'json') {
-                $output->writeln(json_encode(['status' => $result->status, 'target' => $target->path, 'selection' => $plan['selection'], 'plan' => $plan, 'steps' => $result->steps, 'errors' => $result->errors], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+                $output->writeln(json_encode(['status' => $result->status, 'target' => $displayTarget, 'selection' => $plan['selection'], 'plan' => $plan, 'steps' => $result->steps, 'errors' => $result->errors], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
             } else {
-                $output->write($this->handoff->text($target->path, $plan, $result));
+                $output->write($this->handoff->text($displayTarget, $plan, $result));
             }
 
             return $result->isSuccessful() ? Command::SUCCESS : Command::FAILURE;
@@ -187,6 +185,21 @@ final class NewCommand extends Command
         $progress->start();
 
         return $progress;
+    }
+
+    private function generationScreen(InputInterface $input, OutputInterface $output): ?GenerationScreen
+    {
+        if (!$input->isInteractive()
+            || $input->getOption('dry-run')
+            || $input->getOption('format') === 'json'
+            || $output->isQuiet()
+            || !$output->isDecorated()
+            || $output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE
+        ) {
+            return null;
+        }
+
+        return new GenerationScreen($output);
     }
 
     private function verboseOutput(InputInterface $input, OutputInterface $output): ?callable
