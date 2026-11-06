@@ -1,0 +1,19 @@
+name: bundle
+label: Bundle products
+description: Bundle ("build your own") product type
+removable: false  # hard cross-module deps in stock Mage-OS — can't be cleanly removed
+packages:
+  - mage-os/module-bundle
+  - mage-os/module-bundle-graph-ql
+  - mage-os/module-bundle-import-export
+  - mage-os/module-quote-bundle-options
+  - mage-os/module-inventory-bundle-product
+  - mage-os/module-inventory-bundle-product-admin-ui
+  - mage-os/module-inventory-bundle-product-indexer
+  - mage-os/module-inventory-catalog-search-bundle-product
+group: Catalog & Product Types
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

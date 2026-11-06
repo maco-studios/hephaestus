@@ -1,0 +1,11 @@
+name: automatic-translation
+label: Automatic Translation
+description: Admin-side automatic content translation module
+packages:
+  - mage-os/module-automatic-translation
+group: Admin, Ops & Developer
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

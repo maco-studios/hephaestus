@@ -1,0 +1,22 @@
+name: mageos-headless
+label: Mage-OS Headless
+description: Backend + GraphQL API only — no Luma storefront, Luma-only features stripped
+selection:
+  disabledSets:
+    - luma
+    - multishipping
+    - rss
+    - persistent-cart
+  disabledSubtoggles:
+    - page-builder.analytics
+  disabledLayers: []
+  enabledLayers: []
+  enabledAddons: []
+  profileGroups:
+    theme: luma
+    checkout: default
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

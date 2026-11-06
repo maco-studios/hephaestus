@@ -1,0 +1,11 @@
+name: persistent-cart
+label: Persistent shopping cart
+description: Long-lived cart and "remember me" cookie for guests
+packages:
+  - mage-os/module-persistent
+group: Cart, Checkout & Orders
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

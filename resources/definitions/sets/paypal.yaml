@@ -1,0 +1,13 @@
+name: paypal
+label: PayPal
+description: PayPal payment integration
+packages:
+  - mage-os/module-paypal
+  - mage-os/module-paypal-captcha
+  - mage-os/module-paypal-graph-ql
+group: Shipping, Tax & Payments
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

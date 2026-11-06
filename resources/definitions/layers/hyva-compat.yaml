@@ -1,0 +1,21 @@
+name: hyva-compat
+label: Hyvä Compatibility Modules
+description: Bridge modules connecting Hyvä to common Magento extensions
+# Not part of stock Mage-OS — enable adds these packages to `require`.
+stock: false
+# Each compat package bridges Hyvä to one specific 3rd-party Magento extension
+# and is only useful when that extension is itself enabled. Use the per-package
+# `requires.addon` gate (see Definitions::normalizePackages) so the bridge only
+# lands when its target add-on is in the selection. Currently empty — no
+# matching add-ons are defined yet — but the schema below is the template:
+#
+# packages:
+#   - name: hyva-themes/magento2-amasty-shopby-compat
+#     requires:
+#       addon: amasty-shopby
+packages: []
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

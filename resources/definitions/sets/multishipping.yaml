@@ -1,0 +1,11 @@
+name: multishipping
+label: Multishipping checkout
+description: Ship one order to multiple addresses
+packages:
+  - mage-os/module-multishipping
+group: Cart, Checkout & Orders
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

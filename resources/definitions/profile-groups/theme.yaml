@@ -1,0 +1,30 @@
+name: theme
+label: Theme
+description: Storefront theme
+order: 10
+options:
+  - name: luma
+    label: Luma
+    default: true
+    # Luma ships with stock Mage-OS — no `enables` needed.
+    # The `luma` set still exists so other themes can list it under `disables`.
+  - name: hyva
+    label: Hyvä
+    # Both `enables` and `forces` auto-check the item when hyva is selected and
+    # lock it (greyed out, not user-toggleable) — the configurator shows one
+    # "auto" badge for both. `enables` seeds the item into the selection; `forces`
+    # is recomputed from the pick. Neither can be unchecked while hyva is active.
+    enables:
+      addons: [hyva]
+    forces:
+      # Hyvä's storefront is GraphQL-first, so lock the GraphQL API on.
+      layers: [hyva-compat, graphql]
+    # Don't auto-disable Luma when Hyvä is picked: some 3rd-party modules still
+    # declare a hard dependency on `mage-os/theme-frontend-luma`, and replacing
+    # it can break composer resolution. Users who really want it gone can still
+    # untick the Luma module manually.
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

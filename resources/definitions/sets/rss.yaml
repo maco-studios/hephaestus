@@ -1,0 +1,11 @@
+name: rss
+label: RSS feeds
+description: Storefront and admin RSS feeds
+packages:
+  - mage-os/module-rss
+group: Catalog & Product Types
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

@@ -1,0 +1,13 @@
+name: product-alert
+label: Product alerts
+description: Back-in-stock and price-drop email alerts
+removable: false  # hard cross-module deps in stock Mage-OS — can't be cleanly removed
+packages:
+  - mage-os/module-product-alert
+  - mage-os/module-inventory-product-alert
+group: Catalog & Product Types
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

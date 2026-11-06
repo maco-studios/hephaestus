@@ -1,0 +1,21 @@
+name: mageos-full
+label: Mage-OS Full
+description: Stock Mage-OS Community Edition with everything enabled (default)
+default: true
+selection:
+  disabledSets: []
+  disabledLayers: []
+  enabledLayers: []
+  enabledAddons: []
+  profileGroups:
+    theme: luma
+    checkout: default
+    # Keep Elasticsearch 8 installed — "everything enabled" includes the ES8
+    # engine. (The search group otherwise defaults to OpenSearch, which strips
+    # the elasticsearch8 set.)
+    search: elasticsearch8
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

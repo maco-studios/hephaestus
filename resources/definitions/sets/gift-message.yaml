@@ -1,0 +1,13 @@
+name: gift-message
+label: Gift Messages
+description: Gift message support on cart and checkout
+removable: false  # hard cross-module deps in stock Mage-OS — can't be cleanly removed
+packages:
+  - mage-os/module-gift-message
+  - mage-os/module-gift-message-graph-ql
+group: Catalog & Product Types
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

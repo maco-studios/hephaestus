@@ -1,0 +1,13 @@
+name: order-cancellation
+label: Order cancellation
+description: Customer-initiated order cancellation flow
+packages:
+  - mage-os/module-order-cancellation
+  - mage-os/module-order-cancellation-graph-ql
+  - mage-os/module-order-cancellation-ui
+group: Cart, Checkout & Orders
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

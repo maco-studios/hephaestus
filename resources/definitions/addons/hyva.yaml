@@ -1,0 +1,10 @@
+name: hyva
+label: Hyvä Theme
+description: Hyvä storefront theme (free, requires a packagist token from hyva.io)
+packages:
+  - hyva-themes/magento2-default-theme
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

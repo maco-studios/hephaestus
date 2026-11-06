@@ -1,0 +1,40 @@
+name: checkout
+label: Checkout
+description: Checkout implementation
+order: 20
+options:
+  - name: default
+    label: Luma checkout
+    default: true
+  - name: hyva-checkout
+    label: Hyvä Checkout
+    requires:
+      profileGroups:
+        theme: hyva
+    enables:
+      addons: [hyva-checkout]
+  - name: loki-checkout
+    label: Loki Checkout
+    variants:
+      - name: hyva
+        label: Hyvä variant
+        default: true
+        requires:
+          profileGroups:
+            theme: hyva
+        forces:
+          addons: [loki-checkout-hyva]
+      - name: luma
+        label: Luma variant
+        forces:
+          addons: [loki-checkout-luma]
+        subtoggles:
+          - name: luma-components
+            label: Strip Luma JS files not required by Loki
+            addons: [loki-luma-components]
+            default: true
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

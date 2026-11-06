@@ -1,0 +1,13 @@
+name: extended-import-export
+label: Extended Import/Export
+description: Extra import/export entity types beyond core ImportExport — advanced pricing, customers, and tax rates. Dropped by mage-os/product-minimal-edition.
+packages:
+  - mage-os/module-advanced-pricing-import-export
+  - mage-os/module-customer-import-export
+  - mage-os/module-tax-import-export
+group: Admin, Ops & Developer
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

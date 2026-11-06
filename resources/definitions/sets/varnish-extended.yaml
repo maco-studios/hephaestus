@@ -1,0 +1,11 @@
+name: varnish-extended
+label: Varnish Extended
+description: Elgentos' extended Varnish helpers, bundled by Mage-OS CE. Absent from mage-os/product-minimal-edition; not required by core.
+packages:
+  - elgentos/magento2-varnish-extended
+group: Admin, Ops & Developer
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

@@ -1,0 +1,30 @@
+name: two-factor-auth
+label: Two-Factor Authentication
+description: Admin two-factor authentication module
+packages:
+  - mage-os/module-two-factor-auth
+subtoggles:
+  - name: duo
+    label: Duo provider
+    description: Duo Security 2FA provider
+    packages:
+      - duosecurity/duo_api_php
+      - duosecurity/duo_universal_php
+  - name: u2f
+    label: U2F / WebAuthn provider
+    description: Hardware security key provider (YubiKey etc.)
+    packages:
+      - 2tvenom/cborencode
+  - name: totp
+    label: TOTP providers (Google Authenticator + Authy)
+    description: Authenticator-app TOTP providers (share dependencies)
+    packages:
+      - spomky-labs/otphp
+      - christian-riesen/base32
+      - endroid/qr-code
+group: Security
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

@@ -1,0 +1,12 @@
+name: weee
+label: WEEE / Fixed Product Tax
+description: Fixed product tax (FPT) for WEEE and similar levies
+packages:
+  - mage-os/module-weee
+  - mage-os/module-weee-graph-ql
+group: Shipping, Tax & Payments
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

@@ -1,0 +1,12 @@
+name: instant-purchase
+label: Instant Purchase
+description: One-click purchase using stored payment and address
+removable: false  # hard cross-module deps in stock Mage-OS — can't be cleanly removed
+packages:
+  - mage-os/module-instant-purchase
+group: Cart, Checkout & Orders
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

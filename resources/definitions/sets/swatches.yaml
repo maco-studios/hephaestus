@@ -1,0 +1,14 @@
+name: swatches
+label: Color/Image Swatches
+description: Product swatch attributes and layered nav
+removable: false  # hard cross-module deps in stock Mage-OS — can't be cleanly removed
+packages:
+  - mage-os/module-swatches
+  - mage-os/module-swatches-graph-ql
+  - mage-os/module-swatches-layered-navigation
+group: Catalog & Product Types
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

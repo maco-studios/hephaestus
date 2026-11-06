@@ -1,0 +1,12 @@
+name: admin-theme-m137
+label: Mage-OS Admin Theme (M137)
+description: New Mage-OS admin theme and the admin theme switcher module
+packages:
+  - mage-os/theme-adminhtml-m137
+  - mage-os/module-theme-adminhtml-switcher
+group: Admin, Ops & Developer
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

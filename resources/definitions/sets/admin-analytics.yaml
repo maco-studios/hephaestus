@@ -1,0 +1,14 @@
+name: admin-analytics
+label: Admin Analytics
+description: Analytics and reporting modules in the admin
+packages:
+  - mage-os/module-catalog-analytics
+  - mage-os/module-customer-analytics
+  - mage-os/module-sales-analytics
+  - mage-os/module-wishlist-analytics
+group: Admin, Ops & Developer
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

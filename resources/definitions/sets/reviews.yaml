@@ -1,0 +1,14 @@
+name: reviews
+label: Product reviews
+description: Native customer product review module
+removable: false  # hard cross-module deps in stock Mage-OS — can't be cleanly removed
+packages:
+  - mage-os/module-review
+  - mage-os/module-review-analytics
+  - mage-os/module-review-graph-ql
+group: Catalog & Product Types
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

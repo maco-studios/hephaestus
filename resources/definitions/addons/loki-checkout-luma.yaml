@@ -1,0 +1,14 @@
+name: loki-checkout-luma
+label: Loki Checkout (Luma)
+description: Loki Checkout for the stock Luma theme (open source, OSL-3.0)
+packages:
+  - loki-checkout/magento2-luma
+# Open source (OSL-3.0) since the Loki core was published on Packagist.
+repositories:
+  - type: composer
+    url: https://repo.packagist.org
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

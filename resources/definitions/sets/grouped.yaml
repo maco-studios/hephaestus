@@ -1,0 +1,19 @@
+name: grouped
+label: Grouped products
+description: Grouped product type (collection of simples on one PDP)
+removable: false  # hard cross-module deps in stock Mage-OS — can't be cleanly removed
+packages:
+  - mage-os/module-grouped-product
+  - mage-os/module-grouped-product-graph-ql
+  - mage-os/module-grouped-import-export
+  - mage-os/module-grouped-catalog-inventory
+  - mage-os/module-msrp-grouped-product
+  - mage-os/module-inventory-grouped-product
+  - mage-os/module-inventory-grouped-product-admin-ui
+  - mage-os/module-inventory-grouped-product-indexer
+group: Catalog & Product Types
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

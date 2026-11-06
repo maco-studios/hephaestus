@@ -1,0 +1,19 @@
+name: media-gallery-sync
+label: Media gallery synchronization
+description: Cron-driven media gallery and content reference synchronization
+removable: false  # hard cross-module deps in stock Mage-OS — can't be cleanly removed
+packages:
+  - mage-os/module-media-content-synchronization
+  - mage-os/module-media-content-synchronization-api
+  - mage-os/module-media-content-synchronization-catalog
+  - mage-os/module-media-content-synchronization-cms
+  - mage-os/module-media-gallery-synchronization
+  - mage-os/module-media-gallery-synchronization-api
+  - mage-os/module-media-gallery-synchronization-metadata
+  - mage-os/module-media-gallery-synchronization-remote-storage
+group: Admin, Ops & Developer
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

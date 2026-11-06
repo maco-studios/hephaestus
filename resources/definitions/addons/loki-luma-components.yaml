@@ -1,0 +1,14 @@
+name: loki-luma-components
+label: LokiTheme LumaComponents
+description: Strips unused Luma JavaScript for Loki Checkout (Luma)
+packages:
+  - loki-theme/magento2-luma-components
+# Open source (OSL-3.0) since the Loki core was published on Packagist.
+repositories:
+  - type: composer
+    url: https://repo.packagist.org
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

@@ -1,0 +1,12 @@
+name: contact
+label: Contact Us form
+description: Storefront "Contact Us" form (+ its GraphQL resolver)
+packages:
+  - mage-os/module-contact
+  - mage-os/module-contact-graph-ql
+group: Marketing & Content
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

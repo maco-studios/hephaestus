@@ -1,0 +1,96 @@
+name: mageos-lite
+label: Mage-OS Lite
+description: Aggressively trimmed Mage-OS — the Luma storefront on a bare core. Every removable module is stripped except the Luma theme and Two-Factor Authentication; English only, no GraphQL. The Web API layer stays (Luma needs it).
+selection:
+  # Disable every set except luma + two-factor-auth. Sets stock Mage-OS locks on
+  # (hard cross-module deps) stay listed: it's a no-op on standard Mage-OS —
+  # they're force-kept — but under the fully-modular (modulargento) distribution
+  # they're genuinely stripped, making "Lite" as light as the build allows.
+  disabledSets:
+    - admin-analytics
+    - admin-theme-m137
+    - adobe-stock
+    - analytics
+    - automatic-translation
+    - aws-s3
+    - bundle
+    - cardinal-commerce
+    - contact
+    - dhl
+    - downloadable
+    - elasticsearch8
+    - fedex
+    - gift-message
+    - google-marketing
+    - grouped
+    - instant-purchase
+    - inventory
+    - login-as-customer
+    - mageos-rma
+    - marketplace
+    - media-gallery
+    - media-gallery-sync
+    - msrp
+    - multishipping
+    - new-relic
+    - newsletter
+    - order-cancellation
+    - page-builder
+    - paypal
+    - persistent-cart
+    - product-alert
+    - recaptcha
+    - release-notification
+    - reports
+    - reviews
+    - rss
+    - sample-data
+    - send-friend
+    - sitemap
+    - swagger
+    - swatches
+    - ups
+    - usps
+    - vault
+    - weee
+    - webapi-async
+    - wishlist
+    # Extra sets modeled from mage-os/product-minimal-edition's lean keep-set
+    # (definitions/sets/*.yaml). Removability is provisional pending the
+    # modulargento removal-matrix; on standard Mage-OS the not-cleanly-removable
+    # ones are force-kept either way.
+    - admin-activity-log
+    - backup
+    - catalog-widget
+    - checkout-agreements
+    - content-security-policy
+    - custom-admin-logo
+    - extended-import-export
+    - fast-interceptors
+    - ignition-errors
+    - magento-version
+    - n98-magerun
+    - pci4-compatibility
+    - product-video
+    - robots
+    - theme-optimization
+    - varnish-extended
+    # English only.
+    - language-de_de
+    - language-es_es
+    - language-fr_fr
+    - language-nl_nl
+    - language-pt_br
+    - language-zh_hans_cn
+  disabledLayers:
+    - graphql
+  enabledLayers: []
+  enabledAddons: []
+  profileGroups:
+    theme: luma
+    checkout: default
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+

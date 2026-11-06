@@ -1,0 +1,16 @@
+name: downloadable
+label: Downloadable products
+description: Digital downloadable product type
+removable: false  # hard cross-module deps in stock Mage-OS — can't be cleanly removed
+packages:
+  - mage-os/module-downloadable
+  - mage-os/module-downloadable-graph-ql
+  - mage-os/module-downloadable-import-export
+  - mage-os/module-quote-downloadable-links
+  - mage-os/module-customer-downloadable-graph-ql
+group: Catalog & Product Types
+# Derived from Cresset Tools MageOS Maker.
+# Copyright (c) Cresset Tools and MageOS Maker contributors.
+# Licensed under the MIT License.
+# Source: https://github.com/cresset-tools/mageos-maker
+
