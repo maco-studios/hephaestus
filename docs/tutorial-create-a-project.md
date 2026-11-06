@@ -27,6 +27,8 @@ Composer downloads the installer as a bootstrap package, starts the wizard, and 
 composer install
 ```
 
+When no destination is supplied, Composer initially creates its default `mage-os-installer/` bootstrap directory. After the wizard collects the Composer project name, the installer moves the generated project into the project-name folder, such as `storefront/` for `acme/storefront`, and removes the temporary bootstrap directory. Pass a destination explicitly when you want to choose the final folder name.
+
 ## Generate a project from a checkout
 
 Choose a new, empty target directory:

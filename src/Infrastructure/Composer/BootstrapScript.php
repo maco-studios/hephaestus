@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace MageOsInstaller\Infrastructure\Composer;
 
 use Composer\Script\Event;
+use MageOsInstaller\Domain\Selection\ProjectName;
 use RuntimeException;
 use Throwable;
 
@@ -49,11 +50,53 @@ final class BootstrapScript
                 throw new RuntimeException("Mage-OS project generation failed with exit code {$exitCode}");
             }
 
-            self::replaceContents($workingDirectory, $stagingDirectory);
+            if (self::isImplicitBootstrapDirectory($event, $workingDirectory)) {
+                self::moveToProjectDirectory($workingDirectory, $stagingDirectory);
+            } else {
+                self::replaceContents($workingDirectory, $stagingDirectory);
+            }
         } catch (Throwable $exception) {
             self::removePath($stagingDirectory);
             throw $exception;
         }
+    }
+
+    private static function isImplicitBootstrapDirectory(Event $event, string $workingDirectory): bool
+    {
+        $packageName = $event->getComposer()->getPackage()->getPrettyName();
+        $packageDirectory = substr($packageName, strrpos($packageName, '/') + 1);
+
+        return basename($workingDirectory) === $packageDirectory;
+    }
+
+    private static function moveToProjectDirectory(string $workingDirectory, string $source): void
+    {
+        $manifestPath = $source . '/composer.json';
+        if (!is_file($manifestPath)) {
+            throw new RuntimeException('Generated project is missing composer.json.');
+        }
+
+        try {
+            $manifest = json_decode((string) file_get_contents($manifestPath), true, 512, JSON_THROW_ON_ERROR);
+            $projectName = new ProjectName((string) ($manifest['name'] ?? ''));
+        } catch (Throwable $exception) {
+            throw new RuntimeException('Generated project has an invalid Composer name.', 0, $exception);
+        }
+
+        $destination = dirname($workingDirectory) . '/' . $projectName->directoryName();
+        if ($destination === $workingDirectory) {
+            self::replaceContents($workingDirectory, $source);
+
+            return;
+        }
+        if (file_exists($destination)) {
+            throw new RuntimeException("Unable to create generated project directory: {$destination} already exists.");
+        }
+        if (!rename($source, $destination)) {
+            throw new RuntimeException("Unable to move generated project to {$destination}.");
+        }
+
+        self::removePath($workingDirectory);
     }
 
     private static function replaceContents(string $target, string $source): void
