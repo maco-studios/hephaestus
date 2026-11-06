@@ -20,7 +20,7 @@ final class HandoffRenderer
     public function text(string $target, array $plan, InstallationResult $result): string
     {
         if (in_array($result->status, ['installed', 'generated', 'deferred'], true)) {
-            return $this->readyPanel($target, $result);
+            return $this->readyPanel($target, $plan, $result);
         }
 
         $selection = $plan['selection'];
@@ -57,7 +57,7 @@ final class HandoffRenderer
         return implode("\n", $lines) . "\n";
     }
 
-    private function readyPanel(string $target, InstallationResult $result): string
+    private function readyPanel(string $target, array $plan, InstallationResult $result): string
     {
         $command = $result->status === 'installed' ? 'bin/magento --version' : 'composer install';
         $lines = [
@@ -67,12 +67,17 @@ final class HandoffRenderer
             '',
             '<fg=yellow>1.</> <fg=cyan>cd</> ' . $target,
             '<fg=yellow>2.</> <fg=cyan>' . $command . '</>',
-            '',
-            '<fg=magenta>✦</> Build something amazing with Mage-OS!',
-            '',
-            '<fg=yellow>★</> Enjoyed the installer? Star our repository:',
-            '   <href=https://github.com/maco-studios/mage-os-installer>github.com/maco-studios/mage-os-installer</>',
         ];
+
+        foreach ($plan['follow_up_actions'] ?? [] as $note) {
+            $lines[] = '<fg=yellow>!</> ' . $note;
+        }
+
+        $lines[] = '';
+        $lines[] = '<fg=magenta>✦</> Build something amazing with Mage-OS!';
+        $lines[] = '';
+        $lines[] = '<fg=yellow>★</> Enjoyed the installer? Star our repository:';
+        $lines[] = '   <href=https://github.com/maco-studios/mage-os-installer>github.com/maco-studios/mage-os-installer</>';
 
         return implode("\n", $lines) . "\n";
     }
