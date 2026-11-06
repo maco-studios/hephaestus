@@ -17,11 +17,11 @@ use Symfony\Component\Process\Process;
 
 final class ProcessRunner
 {
-    public function run(array $command, string $cwd): array
+    public function run(array $command, string $cwd, ?callable $onOutput = null): array
     {
         $process = new Process($command, $cwd);
         $process->setTimeout(null);
-        $process->run();
+        $process->run($onOutput);
 
         return [
             'exit_code' => $process->getExitCode(),

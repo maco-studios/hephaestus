@@ -191,6 +191,7 @@ final class SelectionResolver
             forcedSets: $forcedSets,
             forcedLayers: $forcedLayers,
             forcedAddons: $forcedAddons,
+            projectName: $selection->projectName,
         );
     }
 

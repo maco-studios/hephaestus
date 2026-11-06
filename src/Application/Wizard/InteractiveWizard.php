@@ -14,12 +14,14 @@ declare(strict_types=1);
 namespace MageOsInstaller\Application\Wizard;
 
 use MageOsInstaller\Domain\Catalog\Catalog;
+use MageOsInstaller\Domain\Selection\ProjectName;
 use MageOsInstaller\Domain\Selection\ProjectSelection;
 use MageOsInstaller\Domain\Selection\SelectionResolver;
 
 use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\multiselect;
 use function Laravel\Prompts\select;
+use function Laravel\Prompts\text;
 
 final class InteractiveWizard
 {
@@ -28,9 +30,19 @@ final class InteractiveWizard
         private readonly SelectionResolver $resolver,
     ) {}
 
-    public function collect(ProjectSelection $selection): ProjectSelection
+    public function collect(ProjectSelection $selection, ?callable $afterProjectName = null): ProjectSelection
     {
         PromptTheme::register();
+        $projectName = text(
+            'Project name',
+            placeholder: 'vendor/project-name',
+            validate: static fn(string $value): ?string => ProjectName::error($value),
+        );
+        $selection = $this->resolver->merge($selection, ['projectName' => $projectName]);
+        if ($afterProjectName !== null) {
+            $afterProjectName($selection);
+        }
+
         $releases = array_combine($this->catalog->availableReleases(), $this->catalog->availableReleases());
         $release = select(
             'Mage-OS release',
@@ -91,6 +103,7 @@ final class InteractiveWizard
             forcedSets: $selection->forcedSets,
             forcedLayers: $selection->forcedLayers,
             forcedAddons: $selection->forcedAddons,
+            projectName: $selection->projectName,
         ));
 
         $sets = [];
@@ -149,6 +162,7 @@ final class InteractiveWizard
             forcedSets: $selection->forcedSets,
             forcedLayers: $selection->forcedLayers,
             forcedAddons: $selection->forcedAddons,
+            projectName: $selection->projectName,
         );
     }
 }

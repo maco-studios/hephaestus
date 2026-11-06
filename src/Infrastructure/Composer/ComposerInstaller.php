@@ -19,12 +19,12 @@ final class ComposerInstaller
 {
     public function __construct(private readonly ProcessRunner $runner) {}
 
-    public function install(string $cwd): array
+    public function install(string $cwd, ?callable $onOutput = null): array
     {
-        return $this->runner->run(['composer', 'install', '--no-interaction', '--prefer-dist'], $cwd);
+        return $this->runner->run(['composer', 'install', '--no-interaction', '--prefer-dist'], $cwd, $onOutput);
     }
 
-    public function createProject(string $package, ?string $version, string $repository, string $target): array
+    public function createProject(string $package, ?string $version, string $repository, string $target, ?callable $onOutput = null): array
     {
         $packageReference = $version !== null && $version !== '' && $version !== 'latest'
             ? $package . ':' . $version
@@ -40,6 +40,6 @@ final class ComposerInstaller
             '--repository-url=' . $repository,
             $packageReference,
             $target,
-        ], getcwd() ?: '.');
+        ], getcwd() ?: '.', $onOutput);
     }
 }

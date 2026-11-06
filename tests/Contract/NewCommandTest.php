@@ -37,8 +37,15 @@ it('supports a non-interactive dry run', function (): void {
     );
     $tester = new CommandTester($command);
 
-    $exitCode = $tester->execute(['target' => sys_get_temp_dir() . '/mageos-dry-run', '--dry-run' => true, '--format' => 'json'], ['interactive' => false]);
+    $exitCode = $tester->execute([
+        'target' => '.',
+        '--name' => 'acme/storefront',
+        '--dry-run' => true,
+        '--format' => 'json',
+    ], ['interactive' => false]);
 
     expect($exitCode)->toBe(0)
-        ->and($tester->getDisplay())->toContain('"status": "planned"');
+        ->and($tester->getDisplay())->toContain('"status": "planned"')
+        ->and($tester->getDisplay())->toContain('"projectName": "acme/storefront"')
+        ->and($tester->getDisplay())->toContain('/storefront');
 });

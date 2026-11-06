@@ -34,9 +34,13 @@ final readonly class ProjectSelection
         public array $forcedSets = [],
         public array $forcedLayers = [],
         public array $forcedAddons = [],
+        public ?string $projectName = null,
     ) {
         if (!in_array($this->mode, ['subtractive', 'additive'], true)) {
             throw new InvalidArgumentException('Mode must be subtractive or additive.');
+        }
+        if ($this->projectName !== null) {
+            new ProjectName($this->projectName);
         }
     }
 

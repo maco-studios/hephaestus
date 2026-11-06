@@ -18,6 +18,7 @@ use MageOsInstaller\Application\ProjectFactory;
 use MageOsInstaller\Application\Wizard\InteractiveWizard;
 use MageOsInstaller\Domain\Catalog\Catalog;
 use MageOsInstaller\Domain\Selection\ProjectSelection;
+use MageOsInstaller\Domain\Selection\ProjectName;
 use MageOsInstaller\Domain\Selection\SelectionResolver;
 use MageOsInstaller\Infrastructure\Filesystem\TargetDirectory;
 use MageOsInstaller\Presentation\Output\ApplicationLogo;
@@ -25,7 +26,9 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Process\Process;
 
 final class NewCommand extends Command
 {
@@ -45,6 +48,7 @@ final class NewCommand extends Command
     {
         $this->addArgument('target', InputArgument::OPTIONAL, 'Target directory', '.')
             ->addOption('release', null, InputOption::VALUE_REQUIRED)
+            ->addOption('name', null, InputOption::VALUE_REQUIRED, 'Composer project name in vendor/project-name format')
             ->addOption('distribution', null, InputOption::VALUE_REQUIRED, 'Mage-OS distribution', 'standard')
             ->addOption('profile', null, InputOption::VALUE_REQUIRED)
             ->addOption('mode', null, InputOption::VALUE_REQUIRED)
@@ -66,12 +70,19 @@ final class NewCommand extends Command
 
             $selection = $this->resolver->defaults($input->getOption('release'));
             $selection = $this->fromOptions($selection, $input);
+            $target = null;
             if ($input->isInteractive()) {
-                $selection = $this->wizard->collect($selection);
+                $selection = $this->wizard->collect($selection, function (ProjectSelection $selection) use (&$target, $input): void {
+                    $target = $this->targetDirectory($input, $selection);
+                    if (!$input->getOption('dry-run')) {
+                        $target->assertSafe();
+                    }
+                });
             }
             $plan = $this->factory->plan($selection);
+            $target ??= $this->targetDirectory($input, $selection);
             if (!$input->getOption('dry-run') && $input->isInteractive()) {
-                $output->writeln($this->handoff->text((string) $input->getArgument('target'), $plan, new \MageOsInstaller\Domain\Installation\InstallationResult('planned')));
+                $output->writeln($this->handoff->text($target->path, $plan, new \MageOsInstaller\Domain\Installation\InstallationResult('planned')));
                 if (!\Symfony\Component\Console\Question\ConfirmationQuestion::class) {
                     return Command::FAILURE;
                 }
@@ -82,8 +93,24 @@ final class NewCommand extends Command
                 }
             }
 
-            $target = new TargetDirectory($this->absolutePath((string) $input->getArgument('target')));
-            $result = $this->factory->create($target, $selection, (bool) $input->getOption('dry-run'), !(bool) $input->getOption('no-install'));
+            $progress = $this->progressBar($input, $output, !(bool) $input->getOption('no-install'));
+            $onStep = $progress === null ? null : function (string $message) use ($progress): void {
+                $progress->setMessage($message);
+                $progress->advance();
+            };
+            $onProcessOutput = $this->verboseOutput($input, $output);
+            $result = $this->factory->create(
+                $target,
+                $selection,
+                (bool) $input->getOption('dry-run'),
+                !(bool) $input->getOption('no-install'),
+                $onStep,
+                $onProcessOutput,
+            );
+            if ($progress !== null) {
+                $progress->finish();
+                $output->writeln('');
+            }
             if ($input->getOption('format') === 'json') {
                 $output->writeln(json_encode(['status' => $result->status, 'target' => $target->path, 'selection' => $plan['selection'], 'plan' => $plan, 'steps' => $result->steps, 'errors' => $result->errors], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
             } else {
@@ -126,7 +153,52 @@ final class NewCommand extends Command
             disabledSubtoggles: $selection->disabledSubtoggles,
             enabledOptionSubtoggles: $selection->enabledOptionSubtoggles,
             optionVariants: $selection->optionVariants,
+            projectName: $input->getOption('name') ?: $selection->projectName,
         );
+    }
+
+    private function targetDirectory(InputInterface $input, ProjectSelection $selection): TargetDirectory
+    {
+        $requestedTarget = (string) $input->getArgument('target');
+        if ($requestedTarget === '.' && $selection->projectName !== null) {
+            $directoryName = new ProjectName($selection->projectName)->directoryName();
+            $requestedTarget = $directoryName;
+        }
+
+        return new TargetDirectory($this->absolutePath($requestedTarget));
+    }
+
+    private function progressBar(InputInterface $input, OutputInterface $output, bool $install): ?ProgressBar
+    {
+        if ($input->getOption('dry-run')
+            || $input->getOption('format') === 'json'
+            || $output->isQuiet()
+            || $output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE
+        ) {
+            return null;
+        }
+
+        $progress = new ProgressBar($output, $install ? 4 : 3);
+        $progress->setFormat(' %current%/%max% [%bar%] %percent:3s%% %message%');
+        $progress->setBarCharacter('<fg=green>▰</>');
+        $progress->setEmptyBarCharacter('<fg=gray>▱</>');
+        $progress->setProgressCharacter('<fg=cyan>▰</>');
+        $progress->setMessage('Preparing generation');
+        $progress->start();
+
+        return $progress;
+    }
+
+    private function verboseOutput(InputInterface $input, OutputInterface $output): ?callable
+    {
+        if ($input->getOption('format') === 'json' || $output->getVerbosity() < OutputInterface::VERBOSITY_VERBOSE) {
+            return null;
+        }
+
+        return static function (string $type, string $buffer) use ($output): void {
+            $prefix = $type === Process::ERR ? '<error>[composer]</error> ' : '<comment>[composer]</comment> ';
+            $output->write($prefix . $buffer);
+        };
     }
 
     private function absolutePath(string $path): string

@@ -42,8 +42,17 @@ final class ProjectFactory
         return $this->planner->plan($selection)->toArray();
     }
 
-    public function create(TargetDirectory $target, ProjectSelection $selection, bool $dryRun, bool $install): InstallationResult
-    {
+    public function create(
+        TargetDirectory $target,
+        ProjectSelection $selection,
+        bool $dryRun,
+        bool $install,
+        ?callable $onStep = null,
+        ?callable $onProcessOutput = null,
+    ): InstallationResult {
+        if ($onStep !== null) {
+            $onStep('Resolving the selected composition');
+        }
         $selection = $this->selectionResolver->resolve($selection);
         $plan = $this->planner->plan($selection);
         if ($dryRun) {
@@ -54,16 +63,25 @@ final class ProjectFactory
         $package = $selection->isAdditive()
             ? 'mage-os/project-minimal-edition'
             : 'mage-os/project-community-edition';
-        $bootstrap = $this->installer->createProject($package, $selection->release, $this->repositoryUrl, $target->path);
+        if ($onStep !== null) {
+            $onStep('Downloading the Mage-OS project base');
+        }
+        $bootstrap = $this->installer->createProject($package, $selection->release, $this->repositoryUrl, $target->path, $onProcessOutput);
         if (($bootstrap['exit_code'] ?? 1) !== 0) {
             return new InstallationResult('failed', ['generated' => $target->path], [trim($bootstrap['error'] ?: $bootstrap['output'])]);
+        }
+        if ($onStep !== null) {
+            $onStep('Writing the generated Composer configuration');
         }
         $this->writer->write($target, $plan);
         if (!$install) {
             return new InstallationResult('deferred', ['generated' => $target->path]);
         }
 
-        $result = $this->installer->install($target->path);
+        if ($onStep !== null) {
+            $onStep('Installing Composer dependencies');
+        }
+        $result = $this->installer->install($target->path, $onProcessOutput);
         if (($result['exit_code'] ?? 1) !== 0) {
             return new InstallationResult('failed', ['generated' => $target->path], [trim($result['error'] ?: $result['output'])]);
         }

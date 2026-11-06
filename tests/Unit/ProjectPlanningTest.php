@@ -46,7 +46,17 @@ it('plans a project with a base requirement and disabled set replacements', func
     $plan = (new ProjectPlanner($catalog))->plan($selection);
 
     expect($plan->requires)->toHaveKey('mage-os/module-contact')
+        ->and($plan->requires['mage-os/magento2-base'])->toBe('4.0.0')
+        ->and($plan->requires['mage-os/magento-composer-installer'])->toBe('4.0.0')
         ->and($plan->replaces)->toHaveKey('mage-os/module-wishlist');
+});
+
+it('uses the requested project name in the generated Composer manifest', function (): void {
+    $catalog = testCatalog();
+    $selection = new ProjectSelection('latest', projectName: 'acme/storefront');
+    $plan = (new ProjectPlanner($catalog))->plan($selection);
+
+    expect($plan->baseProject['name'])->toBe('acme/storefront');
 });
 
 it('rejects unknown sets before generation', function (): void {
