@@ -34,7 +34,7 @@ final class ConsoleApplication extends Application
 
     public function __construct()
     {
-        parent::__construct("Mage-OS Installer", "0.0.4");
+        parent::__construct("Mage-OS Installer", "0.0.5");
         $this->logo = new ApplicationLogo();
         $definitions = dirname(__DIR__, 2) . '/resources/definitions';
         $catalog = (new CatalogRepository(new DefinitionLoader($definitions)))->current();
