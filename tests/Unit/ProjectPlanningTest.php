@@ -45,7 +45,7 @@ it('plans a project with a base requirement and disabled set replacements', func
     $selection = new ProjectSelection('latest', disabledSets: ['wishlist']);
     $plan = (new ProjectPlanner($catalog))->plan($selection);
 
-    expect($plan->requires)->toHaveKey('mage-os/product-community-edition')
+    expect($plan->requires)->toHaveKey('mage-os/module-contact')
         ->and($plan->replaces)->toHaveKey('mage-os/module-wishlist');
 });
 

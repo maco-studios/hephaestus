@@ -51,7 +51,13 @@ final class ProjectPlanner
                 : ($this->catalog->composerTemplates['latest'] ?? []));
         $requires = is_array($template['require'] ?? null) && $template['require'] !== []
             ? $template['require']
-            : [$edition => $selection->release];
+            : [];
+        unset(
+            $requires['mage-os/project-community-edition'],
+            $requires['mage-os/project-minimal-edition'],
+            $requires['mage-os/product-community-edition'],
+            $requires['mage-os/product-minimal-edition'],
+        );
         if ($selection->isAdditive()) {
             $requires['laminas/laminas-view'] = '^2.20';
         }
@@ -60,51 +66,59 @@ final class ProjectPlanner
         $warnings = [];
         $notes = [];
 
-        foreach ($selection->enabledAddons as $addonName) {
-            $addon = $this->catalog->addons[$addonName];
-            foreach ($addon['packages'] ?? [] as $package) {
-                $name = is_string($package) ? $package : ($package['name'] ?? null);
-                if ($name !== null) {
-                    $requires[$name] = '*';
+        $disabledSets = array_fill_keys($selection->disabledSets, true);
+        $disabledLayers = array_fill_keys($selection->disabledLayers, true);
+
+        if ($selection->isAdditive()) {
+            $activeSets = array_fill_keys($selection->enabledSets, true);
+            $activeLayers = array_fill_keys($selection->enabledLayers, true);
+        } else {
+            $activeSets = array_fill_keys(array_keys($this->catalog->sets), true);
+            $activeLayers = [];
+            foreach ($this->catalog->layers as $layerName => $layer) {
+                if (($layer['stock'] ?? true) === true) {
+                    $activeLayers[$layerName] = true;
                 }
             }
-            $repositories = array_merge($repositories, $addon['repositories'] ?? []);
-            $notes = array_merge($notes, $addon['notes'] ?? []);
+            foreach ($selection->enabledLayers as $layerName) {
+                $activeLayers[$layerName] = true;
+            }
+            foreach (array_keys($disabledSets) as $setName) {
+                unset($activeSets[$setName]);
+            }
+            foreach (array_keys($disabledLayers) as $layerName) {
+                unset($activeLayers[$layerName]);
+            }
         }
 
-        foreach ($selection->enabledLayers as $layerName) {
+        foreach (array_keys($activeSets) as $setName) {
+            $set = $this->catalog->sets[$setName] ?? null;
+            if ($set === null) {
+                throw new InvalidArgumentException("Unknown set: {$setName}.");
+            }
+            $this->addPackages($requires, $set['packages'] ?? []);
+        }
+
+        foreach (array_keys($activeLayers) as $layerName) {
             $layer = $this->catalog->layers[$layerName] ?? null;
             if ($layer === null) {
                 throw new InvalidArgumentException("Unknown layer: {$layerName}.");
             }
-            if (($layer['stock'] ?? true) === true && !$selection->isAdditive()) {
-                continue;
-            }
-            foreach ($layer['packages'] ?? [] as $package) {
-                $name = is_string($package) ? $package : ($package['name'] ?? null);
-                if ($name !== null) {
-                    $requires[$name] = '*';
-                }
-            }
+            $this->addPackages($requires, $layer['packages'] ?? []);
         }
 
-        if ($selection->isAdditive()) {
-            foreach ($selection->enabledSets as $setName) {
-                $set = $this->catalog->sets[$setName] ?? null;
-                if ($set === null) {
-                    throw new InvalidArgumentException("Unknown set: {$setName}.");
-                }
-                foreach ($set['packages'] ?? [] as $package) {
-                    $name = is_string($package) ? $package : ($package['name'] ?? null);
-                    if ($name !== null) {
-                        $requires[$name] = '*';
-                    }
-                }
-            }
+        foreach ($selection->enabledAddons as $addonName) {
+            $addon = $this->catalog->addons[$addonName];
+            $this->addPackages($requires, $addon['packages'] ?? []);
+            $repositories = array_merge($repositories, $addon['repositories'] ?? []);
+            $notes = array_merge($notes, $addon['notes'] ?? []);
         }
 
         foreach ($selection->disabledSets as $setName) {
             foreach ($this->catalog->sets[$setName]['packages'] ?? [] as $package) {
+                if (is_array($package) && ($package['installable'] ?? true) === false) {
+                    continue;
+                }
                 if (is_array($package) && ($package['replace'] ?? true) === false) {
                     continue;
                 }
@@ -117,6 +131,9 @@ final class ProjectPlanner
 
         foreach ($selection->disabledLayers as $layerName) {
             foreach ($this->catalog->layers[$layerName]['packages'] ?? [] as $package) {
+                if (is_array($package) && ($package['installable'] ?? true) === false) {
+                    continue;
+                }
                 if (is_array($package) && ($package['replace'] ?? true) === false) {
                     continue;
                 }
@@ -156,5 +173,18 @@ final class ProjectPlanner
         $template['type'] ??= 'project';
 
         return $template;
+    }
+
+    private function addPackages(array &$requires, array $packages): void
+    {
+        foreach ($packages as $package) {
+            if (is_array($package) && ($package['installable'] ?? true) === false) {
+                continue;
+            }
+            $name = is_string($package) ? $package : ($package['name'] ?? null);
+            if ($name !== null) {
+                $requires[$name] = '*';
+            }
+        }
     }
 }

@@ -1,16 +1,27 @@
 name: adobe-stock
 label: Adobe Stock integration
 description: Admin Adobe Stock asset picker for the media gallery
+# The package family remains in the catalog for future repository support, but
+# its current Mage-OS repository graph is not installable.
 packages:
-  - mage-os/adobe-stock-integration
-  - mage-os/module-adobe-stock-admin-ui
-  - mage-os/module-adobe-stock-asset
-  - mage-os/module-adobe-stock-asset-api
-  - mage-os/module-adobe-stock-client
-  - mage-os/module-adobe-stock-client-api
-  - mage-os/module-adobe-stock-image
-  - mage-os/module-adobe-stock-image-admin-ui
-  - mage-os/module-adobe-stock-image-api
+  - name: mage-os/adobe-stock-integration
+    installable: false
+  - name: mage-os/module-adobe-stock-admin-ui
+    installable: false
+  - name: mage-os/module-adobe-stock-asset
+    installable: false
+  - name: mage-os/module-adobe-stock-asset-api
+    installable: false
+  - name: mage-os/module-adobe-stock-client
+    installable: false
+  - name: mage-os/module-adobe-stock-client-api
+    installable: false
+  - name: mage-os/module-adobe-stock-image
+    installable: false
+  - name: mage-os/module-adobe-stock-image-admin-ui
+    installable: false
+  - name: mage-os/module-adobe-stock-image-api
+    installable: false
 group: Admin, Ops & Developer
 # Derived from Cresset Tools MageOS Maker.
 # Copyright (c) Cresset Tools and MageOS Maker contributors.

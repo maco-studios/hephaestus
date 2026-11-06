@@ -5,8 +5,10 @@ removable: false  # in stock Mage-OS the report-aggregation framework + dashboar
 removable_modulargento: true  # decoupled in modulargento: framework extracted to Magento_ReportingFramework, dashboard/sidebar seamed
 packages:
   - mage-os/module-reports
-  - mage-os/module-review-reports
-  - mage-os/module-wishlist-reports
+  - name: mage-os/module-review-reports
+    installable: false
+  - name: mage-os/module-wishlist-reports
+    installable: false
 group: Admin, Ops & Developer
 # Derived from Cresset Tools MageOS Maker.
 # Copyright (c) Cresset Tools and MageOS Maker contributors.

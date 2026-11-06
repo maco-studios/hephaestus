@@ -21,13 +21,15 @@ packages:
   - mage-os/module-media-gallery-integration
   - mage-os/module-media-gallery-metadata
   - mage-os/module-media-gallery-metadata-api
-  - mage-os/module-media-gallery-metadata-remote-storage
+  - name: mage-os/module-media-gallery-metadata-remote-storage
+    installable: false
   - mage-os/module-media-gallery-renditions
   - mage-os/module-media-gallery-renditions-api
   - mage-os/module-media-gallery-synchronization
   - mage-os/module-media-gallery-synchronization-api
   - mage-os/module-media-gallery-synchronization-metadata
-  - mage-os/module-media-gallery-synchronization-remote-storage
+  - name: mage-os/module-media-gallery-synchronization-remote-storage
+    installable: false
   - mage-os/module-media-gallery-ui
   - mage-os/module-media-gallery-ui-api
 group: Admin, Ops & Developer

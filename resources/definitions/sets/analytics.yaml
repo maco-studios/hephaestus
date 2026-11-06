@@ -12,7 +12,8 @@ packages:
   - mage-os/module-review-analytics
   - mage-os/module-sales-analytics
   - mage-os/module-wishlist-analytics
-  - mage-os/module-admin-analytics-release-notification
+  - name: mage-os/module-admin-analytics-release-notification
+    installable: false
 group: Admin, Ops & Developer
 # Derived from Cresset Tools MageOS Maker.
 # Copyright (c) Cresset Tools and MageOS Maker contributors.
