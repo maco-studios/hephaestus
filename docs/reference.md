@@ -65,7 +65,7 @@ The resolver re-applies mandatory dependencies and removes conflicting disable r
 
 ## Output statuses
 
-Text generation uses a colored progress bar for the composition, Mage-OS base download, Composer manifest, and dependency installation stages. JSON output remains free of progress decorations. Add `-vvv` when diagnosing a Composer or repository problem; it streams the child Composer process with `[composer]` labels.
+Decorated text generation uses a split-pane terminal screen with a fixed header and bounded recent Composer output for the composition, Mage-OS base download, Composer manifest, and dependency installation stages. JSON, dry-run, quiet, redirected, and verbose output remains free of this screen. Add `-vvv` when diagnosing a Composer or repository problem; it streams the child Composer process with `[composer]` labels.
 
 The text and JSON output can report:
 

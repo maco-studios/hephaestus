@@ -27,7 +27,6 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
@@ -85,14 +84,10 @@ final class NewCommand extends Command
             $displayTarget = getenv('MAGEOS_DISPLAY_TARGET') ?: $target->path;
 
             $screen = $this->generationScreen($input, $output, $displayTarget);
-            $progress = $screen === null ? $this->progressBar($input, $output, !(bool) $input->getOption('no-install')) : null;
             $screen?->start();
             $onStep = $screen !== null
                 ? $screen->step(...)
-                : ($progress === null ? null : function (string $message) use ($progress): void {
-                    $progress->setMessage($message);
-                    $progress->advance();
-                });
+                : null;
             $onProcessOutput = $screen !== null
                 ? $screen->processOutput(...)
                 : $this->verboseOutput($input, $output);
@@ -104,10 +99,6 @@ final class NewCommand extends Command
                 $onStep,
                 $onProcessOutput,
             );
-            if ($progress !== null) {
-                $progress->finish();
-                $output->writeln('');
-            }
             $screen?->finish($result->isSuccessful() ? 'Generation complete' : 'Generation failed');
             if ($input->getOption('format') === 'json') {
                 $output->writeln(json_encode(['status' => $result->status, 'target' => $displayTarget, 'selection' => $plan['selection'], 'plan' => $plan, 'steps' => $result->steps, 'errors' => $result->errors], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
@@ -166,31 +157,9 @@ final class NewCommand extends Command
         return new TargetDirectory($this->absolutePath($requestedTarget));
     }
 
-    private function progressBar(InputInterface $input, OutputInterface $output, bool $install): ?ProgressBar
-    {
-        if ($input->getOption('dry-run')
-            || $input->getOption('format') === 'json'
-            || $output->isQuiet()
-            || $output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE
-        ) {
-            return null;
-        }
-
-        $progress = new ProgressBar($output, $install ? 4 : 3);
-        $progress->setFormat(' %current%/%max% [%bar%] %percent:3s%% %message%');
-        $progress->setBarCharacter('<fg=green>▰</>');
-        $progress->setEmptyBarCharacter('<fg=gray>▱</>');
-        $progress->setProgressCharacter('<fg=cyan>▰</>');
-        $progress->setMessage('Preparing generation');
-        $progress->start();
-
-        return $progress;
-    }
-
     private function generationScreen(InputInterface $input, OutputInterface $output, string $target): ?GenerationScreen
     {
-        if (!$input->isInteractive()
-            || $input->getOption('dry-run')
+        if ($input->getOption('dry-run')
             || $input->getOption('format') === 'json'
             || $output->isQuiet()
             || !$output->isDecorated()
