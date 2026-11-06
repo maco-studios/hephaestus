@@ -2,11 +2,11 @@
 /reference/
 /var/
 /.phpunit.cache/
-/tests/.generated/*/vendor/
-/tests/.generated/full/
-/tests/.generated/lite/
-/tests/.generated/headless/
-/tests/.generated/minimal/
-/tests/.generated/custom-hyva/
-/tests/.generated/mageos-minimal/
+# Generated integration-test projects, while keeping the directory guide tracked.
+/tests/.generated/*
+!/tests/.generated/README.md
+
+# Local tooling and operating-system metadata.
+/.php-cs-fixer.cache
+*:Zone.Identifier
 .DS_Store
