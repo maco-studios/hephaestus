@@ -43,6 +43,7 @@ final class SelectionInput
             enabledOptionSubtoggles: $selection->enabledOptionSubtoggles,
             optionVariants: $selection->optionVariants,
             projectName: $input->getOption('name') ?: $selection->projectName,
+            install: $selection->install,
         );
     }
 }

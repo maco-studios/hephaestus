@@ -192,6 +192,7 @@ final class SelectionResolver
             forcedLayers: $forcedLayers,
             forcedAddons: $forcedAddons,
             projectName: $selection->projectName,
+            install: $selection->install,
         );
     }
 

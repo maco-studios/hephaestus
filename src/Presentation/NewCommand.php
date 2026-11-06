@@ -95,7 +95,7 @@ final class NewCommand extends Command
                 $target,
                 $selection,
                 (bool) $input->getOption('dry-run'),
-                !(bool) $input->getOption('no-install'),
+                $selection->install && !(bool) $input->getOption('no-install'),
                 $onStep,
                 $onProcessOutput,
             );

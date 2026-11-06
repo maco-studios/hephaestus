@@ -163,6 +163,7 @@ final class InteractiveWizard
             forcedLayers: $selection->forcedLayers,
             forcedAddons: $selection->forcedAddons,
             projectName: $selection->projectName,
+            install: $install,
         );
     }
 }
