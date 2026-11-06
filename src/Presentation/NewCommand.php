@@ -84,7 +84,7 @@ final class NewCommand extends Command
             $target ??= $this->targetDirectory($input, $selection);
             $displayTarget = getenv('MAGEOS_DISPLAY_TARGET') ?: $target->path;
 
-            $screen = $this->generationScreen($input, $output);
+            $screen = $this->generationScreen($input, $output, $displayTarget);
             $progress = $screen === null ? $this->progressBar($input, $output, !(bool) $input->getOption('no-install')) : null;
             $screen?->start();
             $onStep = $screen !== null
@@ -187,7 +187,7 @@ final class NewCommand extends Command
         return $progress;
     }
 
-    private function generationScreen(InputInterface $input, OutputInterface $output): ?GenerationScreen
+    private function generationScreen(InputInterface $input, OutputInterface $output, string $target): ?GenerationScreen
     {
         if (!$input->isInteractive()
             || $input->getOption('dry-run')
@@ -199,7 +199,7 @@ final class NewCommand extends Command
             return null;
         }
 
-        return new GenerationScreen($output);
+        return new GenerationScreen($output, target: $target);
     }
 
     private function verboseOutput(InputInterface $input, OutputInterface $output): ?callable

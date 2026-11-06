@@ -30,6 +30,7 @@ final class GenerationScreen
     public function __construct(
         private readonly OutputInterface $outputWriter,
         private readonly int $maxOutputLines = 8,
+        private readonly ?string $target = null,
     ) {}
 
     public function start(): void
@@ -63,8 +64,7 @@ final class GenerationScreen
     public function finish(string $stage = 'Generation complete'): void
     {
         $this->stage = $stage;
-        $this->render();
-        $this->outputWriter->writeln('');
+        $this->settleOutput();
     }
 
     private function append(string $line): void
@@ -80,6 +80,7 @@ final class GenerationScreen
         $lines = [
             '<fg=cyan;options=bold>' . $spinner . ' Creating Mage-OS project</>',
             '<fg=yellow>↳ ' . $this->fit($this->stage, max(0, $width - 2)) . '</>',
+            '<fg=gray>Target: ' . $this->fit($this->target ?? 'current directory', max(0, $width - 8)) . '</>',
             '<fg=cyan>' . str_repeat('─', $width) . '</>',
         ];
         foreach ($this->output as $line) {
@@ -98,6 +99,21 @@ final class GenerationScreen
         $this->renderedLines = count($lines);
     }
 
+    private function settleOutput(): void
+    {
+        if ($this->renderedLines === 0 || !$this->outputWriter->isDecorated()) {
+            return;
+        }
+
+        $width = max(48, min(120, (new Terminal())->getWidth()));
+        $this->outputWriter->write("\033[{$this->renderedLines}A");
+        foreach ($this->output as $line) {
+            $this->outputWriter->writeln("\033[2K\r" . $this->formatOutputLine($line, $width));
+        }
+        $this->outputWriter->write("\033[0J");
+        $this->renderedLines = count($this->output);
+    }
+
     private function formatOutputLine(string $line, int $width): string
     {
         return '<fg=gray>' . $this->fit($line, $width) . '</>';
@@ -105,11 +121,11 @@ final class GenerationScreen
 
     private function fit(string $text, int $width): string
     {
-        $text = preg_replace('/\e\[[;\d]*m/', '', $text) ?? $text;
-        $length = mb_strwidth($text);
+        $visibleText = preg_replace('/<[^>]+>|\e\[[;\d]*m/', '', $text) ?? $text;
+        $length = mb_strwidth($visibleText);
 
         return $length <= $width
             ? $text . str_repeat(' ', $width - $length)
-            : mb_substr($text, 0, max(0, $width - 1)) . '…';
+            : mb_substr($visibleText, 0, max(0, $width - 1)) . '…';
     }
 }

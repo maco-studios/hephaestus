@@ -16,18 +16,20 @@ use Symfony\Component\Console\Output\BufferedOutput;
 
 it('renders a bounded generation screen with the latest output', function (): void {
     $output = new BufferedOutput();
-    $screen = new GenerationScreen($output, 2);
+    $screen = new GenerationScreen($output, 2, '/tmp/mageos-project');
 
     $screen->start();
     $screen->processOutput('out', "first\nsecond\nthird\n");
     $screen->finish();
 
     expect($output->fetch())->toContain('Creating Mage-OS project')
+        ->toContain('Target: /tmp/mageos-project')
         ->toContain('────────────────')
-        ->not->toContain('╭─')
+        ->not->toContain('╭')
         ->not->toContain('│')
         ->toContain('second')
-        ->toContain('third');
+        ->toContain('third')
+        ->not->toContain('Generation complete');
 });
 
 it('does not present composer status output as an error or duplicate the active stage', function (): void {
