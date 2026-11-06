@@ -159,10 +159,10 @@ final class NewCommand extends Command
 
     private function generationScreen(InputInterface $input, OutputInterface $output, string $target): ?GenerationScreen
     {
-        if ($input->getOption('dry-run')
+        if (!$input->isInteractive()
+            || $input->getOption('dry-run')
             || $input->getOption('format') === 'json'
             || $output->isQuiet()
-            || !$output->isDecorated()
             || $output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE
         ) {
             return null;

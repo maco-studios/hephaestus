@@ -90,11 +90,13 @@ final class GenerationScreen
             $lines[] = '';
         }
 
-        if ($this->renderedLines > 0 && $this->outputWriter->isDecorated()) {
+        $decorated = $this->outputWriter->isDecorated();
+        if ($this->renderedLines > 0 && $decorated) {
             $this->outputWriter->write("\033[{$this->renderedLines}A");
         }
+        $linePrefix = $decorated ? "\033[2K\r" : '';
         foreach ($lines as $line) {
-            $this->outputWriter->writeln("\033[2K\r" . $line);
+            $this->outputWriter->writeln($linePrefix . $line);
         }
         $this->renderedLines = count($lines);
     }

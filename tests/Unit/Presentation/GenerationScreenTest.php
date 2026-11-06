@@ -42,3 +42,16 @@ it('does not present composer status output as an error or duplicate the active 
     expect($output->fetch())->not->toContain('error:')
         ->toContain('Creating a project');
 });
+
+it('renders useful generation output when terminal decoration is disabled', function (): void {
+    $output = new BufferedOutput();
+    $output->setDecorated(false);
+    $screen = new GenerationScreen($output, 2);
+
+    $screen->start();
+    $screen->step('Installing Composer dependencies');
+
+    expect($output->fetch())
+        ->toContain('Installing Composer dependencies')
+        ->not->toContain("\033[");
+});
