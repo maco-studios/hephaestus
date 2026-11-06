@@ -65,6 +65,10 @@ final class NewCommand extends Command
     {
         try {
             if ($input->isInteractive() && $input->getOption('format') !== 'json') {
+                $this->enableTerminalDecoration($output);
+            }
+
+            if ($input->isInteractive() && $input->getOption('format') !== 'json') {
                 $output->write($this->logo->render());
             }
 
@@ -181,6 +185,19 @@ final class NewCommand extends Command
             $prefix = $type === Process::ERR ? '<error>[composer]</error> ' : '<comment>[composer]</comment> ';
             $output->write($prefix . $buffer);
         };
+    }
+
+    private function enableTerminalDecoration(OutputInterface $output): void
+    {
+        if ($output->isDecorated() || getenv('NO_COLOR') !== false || !function_exists('stream_isatty')) {
+            return;
+        }
+
+        $interactiveTerminal = (defined('STDOUT') && stream_isatty(STDOUT))
+            || (defined('STDIN') && stream_isatty(STDIN));
+        if ($interactiveTerminal) {
+            $output->setDecorated(true);
+        }
     }
 
     private function absolutePath(string $path): string
