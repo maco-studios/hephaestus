@@ -146,9 +146,12 @@ final class GenerationScreen
             return true;
         }
 
-        return defined('STDOUT')
-            && function_exists('stream_isatty')
-            && stream_isatty(STDOUT);
+        if (!function_exists('stream_isatty')) {
+            return false;
+        }
+
+        return (defined('STDOUT') && stream_isatty(STDOUT))
+            || (defined('STDIN') && stream_isatty(STDIN));
     }
 
     private function formatOutputLine(string $line, int $width): string
