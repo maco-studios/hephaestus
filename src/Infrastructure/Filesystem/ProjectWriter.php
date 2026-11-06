@@ -24,5 +24,13 @@ final class ProjectWriter
     {
         $target->ensureExists();
         file_put_contents($target->path . '/composer.json', $this->renderer->render($plan));
+
+        // create-project may have left a lock file for the aggregate edition.
+        // It is invalid after replacing that edition with the selected module
+        // graph, so Composer must resolve the generated project from scratch.
+        $lockFile = $target->path . '/composer.lock';
+        if (is_file($lockFile)) {
+            unlink($lockFile);
+        }
     }
 }
