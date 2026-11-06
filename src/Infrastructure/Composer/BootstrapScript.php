@@ -36,7 +36,9 @@ final class BootstrapScript
 
         try {
             $previousDisplayTarget = getenv('MAGEOS_DISPLAY_TARGET');
+            $previousNestedComposer = getenv('MAGEOS_NESTED_COMPOSER');
             putenv('MAGEOS_DISPLAY_TARGET=' . $workingDirectory);
+            putenv('MAGEOS_NESTED_COMPOSER=1');
             $command = escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg($binary) . ' new ' . escapeshellarg($stagingDirectory);
             try {
                 passthru($command, $exitCode);
@@ -45,6 +47,11 @@ final class BootstrapScript
                     putenv('MAGEOS_DISPLAY_TARGET');
                 } else {
                     putenv('MAGEOS_DISPLAY_TARGET=' . $previousDisplayTarget);
+                }
+                if ($previousNestedComposer === false) {
+                    putenv('MAGEOS_NESTED_COMPOSER');
+                } else {
+                    putenv('MAGEOS_NESTED_COMPOSER=' . $previousNestedComposer);
                 }
             }
             if ($exitCode !== 0) {

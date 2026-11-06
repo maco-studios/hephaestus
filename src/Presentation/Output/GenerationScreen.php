@@ -31,10 +31,17 @@ final class GenerationScreen
         private readonly OutputInterface $outputWriter,
         private readonly int $maxOutputLines = 8,
         private readonly ?string $target = null,
+        private readonly bool $live = true,
     ) {}
 
     public function start(): void
     {
+        if (!$this->live) {
+            $this->outputWriter->writeln('<fg=cyan;options=bold>Creating Mage-OS project</>');
+            $this->outputWriter->writeln('<fg=gray>Target: ' . ($this->target ?? 'current directory') . '</>');
+            return;
+        }
+
         $this->render();
     }
 
@@ -42,6 +49,12 @@ final class GenerationScreen
     {
         $this->stage = $stage;
         $this->append($stage);
+        if (!$this->live) {
+            $this->outputWriter->writeln('<fg=yellow>↳ ' . $stage . '</>');
+
+            return;
+        }
+
         $this->render();
     }
 
@@ -56,14 +69,25 @@ final class GenerationScreen
                 }
 
                 $this->append($line);
+                if (!$this->live) {
+                    $this->outputWriter->writeln('<fg=gray>' . $line . '</>');
+                }
             }
         }
-        $this->render();
+        if ($this->live) {
+            $this->render();
+        }
     }
 
     public function finish(string $stage = 'Generation complete'): void
     {
         $this->stage = $stage;
+        if (!$this->live) {
+            $this->outputWriter->writeln('<fg=yellow>↳ ' . $stage . '</>');
+
+            return;
+        }
+
         $this->settleOutput();
     }
 
