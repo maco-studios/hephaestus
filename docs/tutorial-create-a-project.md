@@ -13,22 +13,21 @@ Install:
 
 The installer itself does not provide Magento or Mage-OS credentials.
 
-## Install the installer
+## Create a project
 
-From the directory where you keep development tools, run:
+From the directory where you want the new project, run:
 
 ```bash
-composer create-project maco-studios/mage-os-installer mage-os-installer
-cd mage-os-installer
+composer create-project maco-studios/mage-os-installer my-mageos-project
 ```
 
-The Composer `create-project` hook starts the wizard after the installer package has been created. If you are developing the installer from a checkout, install its dependencies instead:
+Composer downloads the installer as a bootstrap package, starts the wizard, and then replaces the bootstrap contents with the generated standalone Mage-OS project. If you are developing the installer from a checkout, install its dependencies instead:
 
 ```bash
 composer install
 ```
 
-## Generate a project
+## Generate a project from a checkout
 
 Choose a new, empty target directory:
 
