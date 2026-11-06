@@ -1,0 +1,65 @@
+name: Bug report
+description: Something in Mage-OS Installer is not working as expected.
+labels: [bug]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe what you expected and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Include the exact commands and wizard selections.
+      placeholder: |
+        1. php bin/mageos new ...
+        2. Choose the ... profile
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant output
+      description: Include failing output or the generated plan. Remove credentials first.
+      render: shell
+  - type: input
+    id: installer-version
+    attributes:
+      label: Installer version
+      placeholder: "composer show maco-studios/mage-os-installer"
+    validations:
+      required: true
+  - type: input
+    id: mageos-release
+    attributes:
+      label: Mage-OS release
+      placeholder: "latest, 4.0.0, or 3.5.0"
+    validations:
+      required: true
+  - type: input
+    id: php-version
+    attributes:
+      label: PHP version
+    validations:
+      required: true
+  - type: dropdown
+    id: host-os
+    attributes:
+      label: Host OS
+      options:
+        - Linux
+        - macOS
+        - Windows (WSL2)
+    validations:
+      required: true
+  - type: checkboxes
+    id: no-secrets
+    attributes:
+      label: Checklist
+      options:
+        - label: I did not include credentials, tokens, or other secrets in this report.
+          required: true

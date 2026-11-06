@@ -1,0 +1,68 @@
+name: Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  COMPOSER_CACHE_DIR: ${{ github.workspace }}/.composer-cache
+
+jobs:
+  tests:
+    name: Lint, static checks, and tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          tools: composer
+          coverage: pcov
+      - uses: actions/cache@v4
+        with:
+          path: ${{ env.COMPOSER_CACHE_DIR }}
+          key: composer-${{ hashFiles('composer.lock') }}
+      - run: composer install --no-interaction --prefer-dist
+      - run: composer lint
+      - run: composer rector
+      - run: composer validate --strict
+      - run: vendor/bin/pest --coverage --min=0 --coverage-clover=coverage.xml
+      - name: Summarize coverage
+        if: success()
+        run: php .github/scripts/coverage-badge.php coverage.xml /tmp/coverage.svg | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-${{ github.run_id }}
+          path: coverage.xml
+          if-no-files-found: ignore
+
+  coverage-badge:
+    name: Update coverage badge
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    needs: tests
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+      - uses: actions/download-artifact@v4
+        with:
+          name: coverage-${{ github.run_id }}
+          path: .coverage
+      - name: Generate coverage badge
+        run: php .github/scripts/coverage-badge.php .coverage/coverage.xml .github/assets/coverage.svg
+      - name: Commit coverage badge
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: ':bar_chart: chore(ci): update coverage badge'
+          file_pattern: .github/assets/coverage.svg

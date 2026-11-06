@@ -1,0 +1,35 @@
+name: Feature request
+description: Suggest an improvement or a new project-composition capability.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: What are you trying to generate or configure that the installer does not support today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the profile, catalog entry, CLI option, or generated Composer behavior you expect.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Include workarounds or other composition approaches you considered.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area
+      multiple: true
+      options:
+        - Wizard
+        - Catalog
+        - Composer generation
+        - Project installation
+        - Documentation
+        - Other
