@@ -168,7 +168,7 @@ final class NewCommand extends Command
             return null;
         }
 
-        return new GenerationScreen($output, target: $target, live: getenv('MAGEOS_NESTED_COMPOSER') !== '1');
+        return new GenerationScreen($output, target: $target);
     }
 
     private function verboseOutput(InputInterface $input, OutputInterface $output): ?callable
