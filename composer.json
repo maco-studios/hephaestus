@@ -4,11 +4,11 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "composer/semver": ">=3.6",
-        "laravel/prompts": ">=0.3.26",
-        "symfony/console": ">=8.1.11",
-        "symfony/process": ">=8.1.10",
-        "symfony/yaml": ">=8.1.11"
+        "composer/semver": "^3.6",
+        "laravel/prompts": "^0.3.26",
+        "symfony/console": "^8.1.11",
+        "symfony/process": "^8.1.10",
+        "symfony/yaml": "^8.1.11"
     },
     "require-dev": {
         "ergebnis/composer-normalize": "^2.56",
