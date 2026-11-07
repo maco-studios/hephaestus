@@ -22,7 +22,7 @@ it('does not include credential values in handoff output', function (): void {
         'follow_up_actions' => ['Credential required for private repository: token'],
     ];
 
-    $output = (new HandoffRenderer())->text('/tmp/project', $plan, new InstallationResult('deferred'));
+    $output = new HandoffRenderer()->text('/tmp/project', $plan, new InstallationResult('deferred'));
 
     expect($output)->not->toContain('secret-value')
         ->and($output)->toContain('Credential required');

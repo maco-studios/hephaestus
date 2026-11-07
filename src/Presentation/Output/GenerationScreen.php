@@ -38,7 +38,7 @@ final class GenerationScreen
         if (!$this->supportsRedraw()) {
             $this->outputWriter->writeln('<fg=cyan;options=bold>Creating Mage-OS project</>');
             $this->outputWriter->writeln('<fg=gray>Target: ' . ($this->target ?? 'current directory') . '</>');
-            $this->outputWriter->writeln('<fg=cyan>' . str_repeat('─', max(48, min(120, (new Terminal())->getWidth()))) . '</>');
+            $this->outputWriter->writeln('<fg=cyan>' . str_repeat('─', max(48, min(120, new Terminal()->getWidth()))) . '</>');
             $this->renderedLines = 1;
 
             return;
@@ -99,7 +99,7 @@ final class GenerationScreen
 
     private function render(): void
     {
-        $width = max(48, min(120, (new Terminal())->getWidth()));
+        $width = max(48, min(120, new Terminal()->getWidth()));
         $spinner = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'][$this->animationFrame++ % 10];
         $lines = [
             '<fg=cyan;options=bold>' . $spinner . ' Creating Mage-OS project</>',
@@ -131,7 +131,7 @@ final class GenerationScreen
             return;
         }
 
-        $width = max(48, min(120, (new Terminal())->getWidth()));
+        $width = max(48, min(120, new Terminal()->getWidth()));
         $this->outputWriter->write("\033[{$this->renderedLines}A");
         foreach ($this->output as $line) {
             $this->outputWriter->writeln("\033[2K\r" . $this->formatOutputLine($line, $width));

@@ -85,7 +85,7 @@ it('renders multiple errors and counts selected Composer changes', function (): 
         'follow_up_actions' => [],
     ];
 
-    $output = (new HandoffRenderer())->text(
+    $output = new HandoffRenderer()->text(
         '/tmp/failed',
         $plan,
         new InstallationResult('failed', errors: ['First failure', 'Second failure']),

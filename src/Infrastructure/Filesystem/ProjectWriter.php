@@ -16,9 +16,9 @@ namespace MageOsInstaller\Infrastructure\Filesystem;
 use MageOsInstaller\Domain\Planning\ProjectPlan;
 use MageOsInstaller\Infrastructure\Composer\ComposerJsonRenderer;
 
-final class ProjectWriter
+final readonly class ProjectWriter
 {
-    public function __construct(private readonly ComposerJsonRenderer $renderer) {}
+    public function __construct(private ComposerJsonRenderer $renderer) {}
 
     public function write(TargetDirectory $target, ProjectPlan $plan): void
     {

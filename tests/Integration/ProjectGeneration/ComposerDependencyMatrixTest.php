@@ -18,7 +18,7 @@ use MageOsInstaller\Infrastructure\Catalog\DefinitionLoader;
 use MageOsInstaller\Infrastructure\Composer\ComposerJsonRenderer;
 
 it('renders a distinct module-scoped composer document for each representative selection', function (): void {
-    $catalog = (new DefinitionLoader(__DIR__ . '/../../../resources/definitions'))->load();
+    $catalog = new DefinitionLoader(__DIR__ . '/../../../resources/definitions')->load();
     $resolver = new SelectionResolver($catalog);
     $planner = new ProjectPlanner($catalog);
     $renderer = new ComposerJsonRenderer();
@@ -103,7 +103,7 @@ it('renders a distinct module-scoped composer document for each representative s
             'forbidden' => ['mage-os/module-wishlist'],
         ],
         'minimal-headless-tools' => [
-            'selection' => new ProjectSelection('latest', profile: 'mageos-minimal', enabledLayers: ['graphql'], enabledSets: ['catalog-widget']),
+            'selection' => new ProjectSelection('latest', profile: 'mageos-minimal', enabledSets: ['catalog-widget'], enabledLayers: ['graphql']),
             'required' => ['mage-os/module-graph-ql', 'mage-os/module-catalog-widget'],
             'forbidden' => ['mage-os/theme-frontend-luma'],
         ],
@@ -139,12 +139,12 @@ it('renders a distinct module-scoped composer document for each representative s
         $renderedDocuments[$name] = $document['require'];
 
         foreach ($case['required'] as $package) {
-            expect($document['require'], $name)->toHaveKey($package);
+            expect($document['require'])->toHaveKey($package);
         }
         foreach ($case['forbidden'] as $package) {
-            expect($document['require'], $name)->not->toHaveKey($package);
+            expect($document['require'])->not->toHaveKey($package);
         }
-        expect($document['require'], $name)
+        expect($document['require'])
             ->not->toHaveKey('mage-os/product-community-edition')
             ->not->toHaveKey('mage-os/product-minimal-edition');
     }

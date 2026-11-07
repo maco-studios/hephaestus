@@ -15,9 +15,9 @@ use MageOsInstaller\Domain\Selection\SelectionResolver;
 use MageOsInstaller\Infrastructure\Catalog\DefinitionLoader;
 
 it('allows profile defaults to be customized', function (): void {
-    $catalog = (new DefinitionLoader(__DIR__ . '/../../../resources/definitions'))->load();
-    $selection = (new SelectionResolver($catalog))->defaults('latest');
-    $custom = (new SelectionResolver($catalog))->merge($selection, ['disabledSets' => ['wishlist']]);
+    $catalog = new DefinitionLoader(__DIR__ . '/../../../resources/definitions')->load();
+    $selection = new SelectionResolver($catalog)->defaults('latest');
+    $custom = new SelectionResolver($catalog)->merge($selection, ['disabledSets' => ['wishlist']]);
 
     expect($custom->profile)->toBe($selection->profile)
         ->and($custom->disabledSets)->toContain('wishlist');

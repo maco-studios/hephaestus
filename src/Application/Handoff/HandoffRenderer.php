@@ -44,10 +44,8 @@ final class HandoffRenderer
         foreach ($plan['follow_up_actions'] as $note) {
             $lines[] = '  Next:         ' . $note;
         }
-        if ($result->errors !== []) {
-            foreach ($result->errors as $error) {
-                $lines[] = '<error>Error: ' . $error . '</error>';
-            }
+        foreach ($result->errors as $error) {
+            $lines[] = '<error>Error: ' . $error . '</error>';
         }
         if ($result->status === 'deferred') {
             $lines[] = '<info>│</info>   <comment>Next:</comment>         composer install';

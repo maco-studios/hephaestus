@@ -23,7 +23,7 @@ final class CatalogRepository
 
     public function current(): Catalog
     {
-        if ($this->catalog !== null) {
+        if ($this->catalog instanceof \MageOsInstaller\Domain\Catalog\Catalog) {
             return $this->catalog;
         }
 

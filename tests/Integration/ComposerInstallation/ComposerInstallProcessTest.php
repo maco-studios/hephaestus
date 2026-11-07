@@ -14,14 +14,14 @@ declare(strict_types=1);
 use MageOsInstaller\Infrastructure\Process\ProcessRunner;
 
 it('captures process exit status and output', function (): void {
-    $result = (new ProcessRunner())->run(['php', '-r', 'echo "ok";'], getcwd());
+    $result = new ProcessRunner()->run(['php', '-r', 'echo "ok";'], getcwd());
 
     expect($result['exit_code'])->toBe(0)->and($result['output'])->toBe('ok');
 });
 
 it('streams process output to a verbose observer', function (): void {
     $chunks = [];
-    $result = (new ProcessRunner())->run(
+    $result = new ProcessRunner()->run(
         ['php', '-r', 'echo "out"; fwrite(STDERR, "err");'],
         getcwd(),
         static function (string $type, string $buffer) use (&$chunks): void {

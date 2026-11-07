@@ -26,7 +26,7 @@ use MageOsInstaller\Infrastructure\Process\ProcessRunner;
 use MageOsInstaller\Presentation\NewCommand;
 
 it('supports a non-interactive dry run', function (): void {
-    $catalog = (new CatalogRepository(new DefinitionLoader(__DIR__ . '/../../resources/definitions')))->current();
+    $catalog = new CatalogRepository(new DefinitionLoader(__DIR__ . '/../../resources/definitions'))->current();
     $resolver = new SelectionResolver($catalog);
     $command = new NewCommand(
         $catalog,

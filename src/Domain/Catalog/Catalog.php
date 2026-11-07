@@ -45,9 +45,7 @@ final readonly class Catalog
             }
         }
 
-        return isset($this->profileGroups[$group]['options'][0]['name'])
-            ? $this->profileGroups[$group]['options'][0]['name']
-            : null;
+        return $this->profileGroups[$group]['options'][0]['name'] ?? null;
     }
 
     public function availableReleases(): array

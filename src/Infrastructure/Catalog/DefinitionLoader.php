@@ -17,9 +17,9 @@ use MageOsInstaller\Domain\Catalog\Catalog;
 use RuntimeException;
 use Symfony\Component\Yaml\Yaml;
 
-final class DefinitionLoader
+final readonly class DefinitionLoader
 {
-    public function __construct(private readonly string $definitionsPath) {}
+    public function __construct(private string $definitionsPath) {}
 
     public function load(string $sourceVersion = 'bundled'): Catalog
     {

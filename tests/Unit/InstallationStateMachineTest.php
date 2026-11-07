@@ -22,5 +22,5 @@ it('allows generation to be deferred and installed later', function (): void {
 });
 
 it('rejects invalid installation transitions', function (): void {
-    (new InstallationStateMachine())->transition('planned', 'installed');
+    new InstallationStateMachine()->transition('planned', 'installed');
 })->throws(InvalidArgumentException::class);

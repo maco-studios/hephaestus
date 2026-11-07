@@ -17,9 +17,9 @@ use MageOsInstaller\Domain\Selection\ProjectSelection;
 use MageOsInstaller\Presentation\Input\SelectionInput;
 use Symfony\Component\Console\Input\InputInterface;
 
-final class NonInteractiveSelection
+final readonly class NonInteractiveSelection
 {
-    public function __construct(private readonly SelectionInput $input) {}
+    public function __construct(private SelectionInput $input) {}
 
     public function collect(ProjectSelection $defaults, InputInterface $input): ProjectSelection
     {

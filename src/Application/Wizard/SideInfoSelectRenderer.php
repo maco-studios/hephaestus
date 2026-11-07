@@ -19,7 +19,7 @@ use Laravel\Prompts\Themes\Default\Renderer;
 
 final class SideInfoSelectRenderer extends Renderer
 {
-    public function __invoke(SelectPrompt $prompt)
+    public function __invoke(SelectPrompt $prompt): string|static
     {
         if ($prompt->state !== 'initial' && $prompt->state !== 'active') {
             return (new \Laravel\Prompts\Themes\Default\SelectPromptRenderer($prompt))($prompt);
@@ -32,7 +32,7 @@ final class SideInfoSelectRenderer extends Renderer
         }
 
         $sideWidth = min(44, max(24, $this->contentWidth($description) + 4));
-        $optionWidth = max(array_map(fn($option) => $this->contentWidth((string) $option), $prompt->options));
+        $optionWidth = max(array_map($this->contentWidth(...), $prompt->options));
         $mainWidth = min(
             max(36, $optionWidth + 8),
             max(36, $terminalWidth - $sideWidth - 5),

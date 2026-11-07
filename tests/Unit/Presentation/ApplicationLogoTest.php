@@ -14,7 +14,7 @@ declare(strict_types=1);
 use MageOsInstaller\Presentation\Output\ApplicationLogo;
 
 it('renders the Mage-OS terminal wordmark and tagline', function (): void {
-    $logo = (new ApplicationLogo())->render();
+    $logo = new ApplicationLogo()->render();
 
     expect($logo)
         ->toContain('MAGE-OS')
@@ -24,7 +24,7 @@ it('renders the Mage-OS terminal wordmark and tagline', function (): void {
 });
 
 it('renders a custom title and version', function (): void {
-    $logo = (new ApplicationLogo())->render('Mage-OS Installer', '1.2.3');
+    $logo = new ApplicationLogo()->render('Mage-OS Installer', '1.2.3');
 
     expect($logo)->toContain('Mage-OS Installer 1.2.3');
 });

@@ -24,7 +24,7 @@ use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputOption;
 
 it('provides the next action for each installation status', function (string $status, string $instruction): void {
-    expect((new ResumeInstructions())->forStatus($status))->toBe($instruction);
+    expect(new ResumeInstructions()->forStatus($status))->toBe($instruction);
 })->with([
     ['deferred', 'Change into the generated project and run composer install.'],
     ['failed', 'Review the reported step, correct the issue, and rerun the installer from the generated project.'],
@@ -33,23 +33,23 @@ it('provides the next action for each installation status', function (string $st
 ]);
 
 it('formats selection feedback', function (): void {
-    expect((new SelectionFeedback())->explain('Redis', 'requires the cache layer'))
+    expect(new SelectionFeedback()->explain('Redis', 'requires the cache layer'))
         ->toBe('Redis: requires the cache layer');
 });
 
 it('renders JSON with stable human-readable formatting', function (): void {
     $payload = ['path' => '/tmp/mage-os', 'label' => 'Mage-OS'];
 
-    expect((new JsonOutput())->render($payload))
+    expect(new JsonOutput()->render($payload))
         ->toBe("{\n    \"path\": \"/tmp/mage-os\",\n    \"label\": \"Mage-OS\"\n}\n");
-    expect((new PlanRenderer())->json($payload))
+    expect(new PlanRenderer()->json($payload))
         ->toBe("{\n    \"path\": \"/tmp/mage-os\",\n    \"label\": \"Mage-OS\"\n}\n");
 });
 
 it('formats text output labels and values', function (): void {
-    expect((new TextOutput())->line('Target', '/tmp/mage-os'))
+    expect(new TextOutput()->line('Target', '/tmp/mage-os'))
         ->toBe("  Target:        /tmp/mage-os");
-    expect((new TextOutput())->line('Count', 3))
+    expect(new TextOutput()->line('Count', 3))
         ->toBe("  Count:         3");
 });
 
@@ -80,7 +80,7 @@ it('applies non-interactive command options to the selection', function (): void
         new InputOption('name', null, InputOption::VALUE_REQUIRED),
     ]));
 
-    $selection = (new NonInteractiveSelection(new SelectionInput()))->collect($defaults, $input);
+    $selection = new NonInteractiveSelection(new SelectionInput())->collect($defaults, $input);
 
     expect($selection->distribution)->toBe('enterprise')
         ->and($selection->profile)->toBe('mageos-minimal')

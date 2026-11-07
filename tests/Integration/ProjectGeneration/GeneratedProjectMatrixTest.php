@@ -24,7 +24,7 @@ use MageOsInstaller\Infrastructure\Filesystem\ProjectWriter;
 use MageOsInstaller\Infrastructure\Process\ProcessRunner;
 
 it('writes multiple visible Mage-OS project compositions under tests/.generated', function (): void {
-    $catalog = (new CatalogRepository(new DefinitionLoader(__DIR__ . '/../../../resources/definitions')))->current();
+    $catalog = new CatalogRepository(new DefinitionLoader(__DIR__ . '/../../../resources/definitions'))->current();
     $resolver = new SelectionResolver($catalog);
     $factory = new ProjectFactory(
         $resolver,
@@ -60,7 +60,7 @@ it('writes multiple visible Mage-OS project compositions under tests/.generated'
         $target = new TargetDirectory($targetPath);
         if (is_dir($targetPath . '/app') && is_file($targetPath . '/composer.json')) {
             $resolved = $resolver->resolve($selection);
-            $writer->write($target, (new ProjectPlanner($catalog))->plan($resolved));
+            $writer->write($target, new ProjectPlanner($catalog)->plan($resolved));
             $install = $installer->install($targetPath);
             $result = new MageOsInstaller\Domain\Installation\InstallationResult(
                 ($install['exit_code'] ?? 1) === 0 ? 'installed' : 'failed',

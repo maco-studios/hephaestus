@@ -23,11 +23,11 @@ use function Laravel\Prompts\multiselect;
 use function Laravel\Prompts\select;
 use function Laravel\Prompts\text;
 
-final class InteractiveWizard
+final readonly class InteractiveWizard
 {
     public function __construct(
-        private readonly Catalog $catalog,
-        private readonly SelectionResolver $resolver,
+        private Catalog $catalog,
+        private SelectionResolver $resolver,
     ) {}
 
     public function collect(ProjectSelection $selection, ?callable $afterProjectName = null): ProjectSelection

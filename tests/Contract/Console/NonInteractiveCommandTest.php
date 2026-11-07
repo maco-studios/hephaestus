@@ -26,7 +26,7 @@ use MageOsInstaller\Infrastructure\Process\ProcessRunner;
 use MageOsInstaller\Presentation\NewCommand;
 
 it('does not prompt when input is non-interactive', function (): void {
-    $catalog = (new CatalogRepository(new DefinitionLoader(__DIR__ . '/../../../resources/definitions')))->current();
+    $catalog = new CatalogRepository(new DefinitionLoader(__DIR__ . '/../../../resources/definitions'))->current();
     $resolver = new SelectionResolver($catalog);
     $command = new NewCommand($catalog, $resolver, new ProjectFactory($resolver, new ProjectPlanner($catalog), new ProjectWriter(new ComposerJsonRenderer()), new ComposerInstaller(new ProcessRunner())), new InteractiveWizard($catalog, $resolver), new HandoffRenderer());
     $tester = new CommandTester($command);

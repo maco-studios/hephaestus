@@ -16,9 +16,9 @@ use MageOsInstaller\Domain\Selection\SelectionResolver;
 use MageOsInstaller\Infrastructure\Catalog\DefinitionLoader;
 
 it('forces a required layer back on when an active set depends on it', function (): void {
-    $catalog = (new DefinitionLoader(__DIR__ . '/../../../resources/definitions'))->load();
+    $catalog = new DefinitionLoader(__DIR__ . '/../../../resources/definitions')->load();
     $selection = new ProjectSelection('latest', disabledLayers: ['webapi']);
-    $resolved = (new SelectionResolver($catalog))->resolve($selection);
+    $resolved = new SelectionResolver($catalog)->resolve($selection);
 
     expect($resolved->forcedLayers)->toContain('webapi')
         ->and($resolved->disabledLayers)->not->toContain('webapi')
@@ -26,9 +26,9 @@ it('forces a required layer back on when an active set depends on it', function 
 });
 
 it('forces dependencies from profile-group choices', function (): void {
-    $catalog = (new DefinitionLoader(__DIR__ . '/../../../resources/definitions'))->load();
+    $catalog = new DefinitionLoader(__DIR__ . '/../../../resources/definitions')->load();
     $selection = new ProjectSelection('latest', profileGroups: ['theme' => 'hyva']);
-    $resolved = (new SelectionResolver($catalog))->resolve($selection);
+    $resolved = new SelectionResolver($catalog)->resolve($selection);
 
     expect($resolved->forcedLayers)->toContain('graphql');
 });

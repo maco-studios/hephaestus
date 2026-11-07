@@ -18,7 +18,7 @@ use MageOsInstaller\Infrastructure\Catalog\DefinitionLoader;
 function selectionResolverCoverageResolver(): SelectionResolver
 {
     return new SelectionResolver(
-        (new DefinitionLoader(__DIR__ . '/../../../resources/definitions'))->load(),
+        new DefinitionLoader(__DIR__ . '/../../../resources/definitions')->load(),
     );
 }
 

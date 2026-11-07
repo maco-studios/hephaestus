@@ -18,12 +18,12 @@ use MageOsInstaller\Infrastructure\Catalog\DefinitionLoader;
 
 function matrixCatalog(): \MageOsInstaller\Domain\Catalog\Catalog
 {
-    return (new DefinitionLoader(__DIR__ . '/../../../resources/definitions'))->load();
+    return new DefinitionLoader(__DIR__ . '/../../../resources/definitions')->load();
 }
 
 it('generates module-scoped requirements for a full storefront selection', function (): void {
     $catalog = matrixCatalog();
-    $plan = (new ProjectPlanner($catalog))->plan(new ProjectSelection(
+    $plan = new ProjectPlanner($catalog)->plan(new ProjectSelection(
         'latest',
         profile: 'mageos-full',
     ));
@@ -37,7 +37,7 @@ it('generates module-scoped requirements for a full storefront selection', funct
 
 it('changes the module scope when a storefront capability is disabled', function (): void {
     $catalog = matrixCatalog();
-    $plan = (new ProjectPlanner($catalog))->plan(new ProjectSelection(
+    $plan = new ProjectPlanner($catalog)->plan(new ProjectSelection(
         'latest',
         profile: 'mageos-full',
         disabledSets: ['luma', 'contact'],
@@ -51,7 +51,7 @@ it('changes the module scope when a storefront capability is disabled', function
 
 it('generates only selected module families for an additive tools selection', function (): void {
     $catalog = matrixCatalog();
-    $plan = (new ProjectPlanner($catalog))->plan(new ProjectSelection(
+    $plan = new ProjectPlanner($catalog)->plan(new ProjectSelection(
         'latest',
         mode: 'additive',
         enabledSets: ['catalog-widget'],
@@ -94,7 +94,7 @@ it('keeps the named project profiles materially different in the dependency matr
 
 it('preserves catalog-only packages without emitting un-installable Composer roots', function (): void {
     $catalog = matrixCatalog();
-    $plan = (new ProjectPlanner($catalog))->plan(new ProjectSelection('latest', profile: 'mageos-full'));
+    $plan = new ProjectPlanner($catalog)->plan(new ProjectSelection('latest', profile: 'mageos-full'));
 
     expect($catalog->sets['adobe-stock']['packages'])
         ->toContain(['name' => 'mage-os/adobe-stock-integration', 'installable' => false]);

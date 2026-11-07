@@ -21,14 +21,14 @@ use MageOsInstaller\Infrastructure\Composer\ComposerInstaller;
 use MageOsInstaller\Infrastructure\Filesystem\ProjectWriter;
 use MageOsInstaller\Infrastructure\Filesystem\TargetDirectory;
 
-final class ProjectFactory
+final readonly class ProjectFactory
 {
     public function __construct(
-        private readonly SelectionResolver $selectionResolver,
-        private readonly ProjectPlanner $planner,
-        private readonly ProjectWriter $writer,
-        private readonly ComposerInstaller $installer,
-        private readonly string $repositoryUrl = 'https://repo.mage-os.org/',
+        private SelectionResolver $selectionResolver,
+        private ProjectPlanner $planner,
+        private ProjectWriter $writer,
+        private ComposerInstaller $installer,
+        private string $repositoryUrl = 'https://repo.mage-os.org/',
     ) {}
 
     public function plan(ProjectSelection $selection): array

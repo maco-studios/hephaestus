@@ -16,8 +16,8 @@ use MageOsInstaller\Domain\Selection\ProjectSelection;
 use MageOsInstaller\Infrastructure\Catalog\DefinitionLoader;
 
 it('represents disabled sets as Composer replacements', function (): void {
-    $catalog = (new DefinitionLoader(__DIR__ . '/../../../resources/definitions'))->load();
-    $plan = (new ProjectPlanner($catalog))->plan(new ProjectSelection('latest', disabledSets: ['luma']));
+    $catalog = new DefinitionLoader(__DIR__ . '/../../../resources/definitions')->load();
+    $plan = new ProjectPlanner($catalog)->plan(new ProjectSelection('latest', disabledSets: ['luma']));
 
     expect($plan->replaces)->toHaveKey('mage-os/theme-frontend-luma');
 });

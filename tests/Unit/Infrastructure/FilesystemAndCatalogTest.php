@@ -71,7 +71,7 @@ it('rejects a target path that points to a file', function (): void {
     $path = sys_get_temp_dir() . '/mageos-file-' . bin2hex(random_bytes(4));
     file_put_contents($path, 'data');
 
-    expect(fn(): mixed => (new TargetDirectory($path))->assertSafe())
+    expect(fn(): mixed => new TargetDirectory($path)->assertSafe())
         ->toThrow(RuntimeException::class, 'not a directory');
 
     unlink($path);
@@ -81,7 +81,7 @@ it('reports when a target directory cannot be created', function (): void {
     $file = sys_get_temp_dir() . '/mageos-parent-file-' . bin2hex(random_bytes(4));
     file_put_contents($file, 'data');
 
-    expect(fn(): mixed => (new TargetDirectory($file . '/child'))->ensureExists())
+    expect(fn(): mixed => new TargetDirectory($file . '/child')->ensureExists())
         ->toThrow(RuntimeException::class, 'Unable to create target directory');
 
     unlink($file);

@@ -16,14 +16,14 @@ use MageOsInstaller\Domain\Selection\SelectionResolver;
 use MageOsInstaller\Infrastructure\Catalog\DefinitionLoader;
 
 it('keeps profile group choices keyed by group name', function (): void {
-    $catalog = (new DefinitionLoader(__DIR__ . '/../../../resources/definitions'))->load();
-    $selection = (new SelectionResolver($catalog))->resolve(new ProjectSelection('latest', profileGroups: ['theme' => 'luma']));
+    $catalog = new DefinitionLoader(__DIR__ . '/../../../resources/definitions')->load();
+    $selection = new SelectionResolver($catalog)->resolve(new ProjectSelection('latest', profileGroups: ['theme' => 'luma']));
 
     expect($selection->profileGroups)->toHaveKey('theme');
 });
 
 it('falls back from an unknown profile group option', function (): void {
-    $catalog = (new DefinitionLoader(__DIR__ . '/../../../resources/definitions'))->load();
+    $catalog = new DefinitionLoader(__DIR__ . '/../../../resources/definitions')->load();
     $resolver = new SelectionResolver($catalog);
     $selection = $resolver->resolve(new ProjectSelection('latest', profileGroups: ['theme' => 'missing']));
 

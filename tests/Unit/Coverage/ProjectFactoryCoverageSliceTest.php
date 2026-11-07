@@ -24,7 +24,7 @@ use MageOsInstaller\Infrastructure\Process\ProcessRunner;
 
 function projectFactoryCoverageSliceFactory(): ProjectFactory
 {
-    $catalog = (new DefinitionLoader(__DIR__ . '/../../../resources/definitions'))->load();
+    $catalog = new DefinitionLoader(__DIR__ . '/../../../resources/definitions')->load();
 
     return new ProjectFactory(
         new SelectionResolver($catalog),

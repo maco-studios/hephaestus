@@ -16,7 +16,7 @@ use MageOsInstaller\Domain\Selection\ProjectSelection;
 use MageOsInstaller\Infrastructure\Catalog\DefinitionLoader;
 
 it('renders the same plan for the same selection', function (): void {
-    $catalog = (new DefinitionLoader(__DIR__ . '/../../../resources/definitions'))->load();
+    $catalog = new DefinitionLoader(__DIR__ . '/../../../resources/definitions')->load();
     $planner = new ProjectPlanner($catalog);
     $selection = new ProjectSelection('latest', disabledSets: ['wishlist']);
 

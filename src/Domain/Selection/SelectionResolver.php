@@ -15,9 +15,9 @@ namespace MageOsInstaller\Domain\Selection;
 
 use MageOsInstaller\Domain\Catalog\Catalog;
 
-final class SelectionResolver
+final readonly class SelectionResolver
 {
-    public function __construct(private readonly Catalog $catalog) {}
+    public function __construct(private Catalog $catalog) {}
 
     public function defaults(?string $release = null): ProjectSelection
     {

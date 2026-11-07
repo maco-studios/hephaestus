@@ -18,7 +18,7 @@ use MageOsInstaller\Infrastructure\Catalog\DefinitionLoader;
 
 function testCatalog(): \MageOsInstaller\Domain\Catalog\Catalog
 {
-    return (new DefinitionLoader(__DIR__ . '/../../resources/definitions'))->load();
+    return new DefinitionLoader(__DIR__ . '/../../resources/definitions')->load();
 }
 
 it('loads the MageOS Maker definition categories', function (): void {
@@ -33,7 +33,7 @@ it('loads the MageOS Maker definition categories', function (): void {
 
 it('creates a default selection from the catalog', function (): void {
     $catalog = testCatalog();
-    $selection = (new SelectionResolver($catalog))->defaults('latest');
+    $selection = new SelectionResolver($catalog)->defaults('latest');
 
     expect($selection->release)->toBe('latest')
         ->and($selection->profile)->toBe($catalog->defaultProfile())
@@ -43,7 +43,7 @@ it('creates a default selection from the catalog', function (): void {
 it('plans a project with a base requirement and disabled set replacements', function (): void {
     $catalog = testCatalog();
     $selection = new ProjectSelection('latest', disabledSets: ['wishlist']);
-    $plan = (new ProjectPlanner($catalog))->plan($selection);
+    $plan = new ProjectPlanner($catalog)->plan($selection);
 
     expect($plan->requires)->toHaveKey('mage-os/module-contact')
         ->and($plan->requires['mage-os/magento2-base'])->toBe('4.0.0')
@@ -54,7 +54,7 @@ it('plans a project with a base requirement and disabled set replacements', func
 it('uses the requested project name in the generated Composer manifest', function (): void {
     $catalog = testCatalog();
     $selection = new ProjectSelection('latest', projectName: 'acme/storefront');
-    $plan = (new ProjectPlanner($catalog))->plan($selection);
+    $plan = new ProjectPlanner($catalog)->plan($selection);
 
     expect($plan->baseProject['name'])->toBe('acme/storefront');
 });
@@ -62,5 +62,5 @@ it('uses the requested project name in the generated Composer manifest', functio
 it('rejects unknown sets before generation', function (): void {
     $catalog = testCatalog();
 
-    (new ProjectPlanner($catalog))->plan(new ProjectSelection('latest', disabledSets: ['does-not-exist']));
+    new ProjectPlanner($catalog)->plan(new ProjectSelection('latest', disabledSets: ['does-not-exist']));
 })->throws(InvalidArgumentException::class);

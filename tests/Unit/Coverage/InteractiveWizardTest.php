@@ -73,10 +73,10 @@ it('collects a subtractive selection and invokes the project-name callback', fun
         Key::ENTER,
     ]);
     $catalog = interactiveWizardCoverageCatalog();
-    $selection = (new SelectionResolver($catalog))->defaults();
+    $selection = new SelectionResolver($catalog)->defaults();
     $callbackSelection = null;
 
-    $result = (new InteractiveWizard($catalog, new SelectionResolver($catalog)))->collect(
+    $result = new InteractiveWizard($catalog, new SelectionResolver($catalog))->collect(
         $selection,
         function (ProjectSelection $callbackValue) use (&$callbackSelection): void {
             $callbackSelection = $callbackValue;
@@ -115,7 +115,7 @@ it('collects an additive selection without optional add-ons', function (): void 
         projectName: 'vendor/original',
     );
 
-    $result = (new InteractiveWizard($catalog, new SelectionResolver($catalog)))->collect($selection);
+    $result = new InteractiveWizard($catalog, new SelectionResolver($catalog))->collect($selection);
 
     expect($result->release)->toBe('2.0')
         ->and($result->mode)->toBe('additive')

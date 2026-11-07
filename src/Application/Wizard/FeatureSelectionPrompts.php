@@ -17,9 +17,9 @@ use MageOsInstaller\Domain\Catalog\Catalog;
 
 use function Laravel\Prompts\multiselect;
 
-final class FeatureSelectionPrompts
+final readonly class FeatureSelectionPrompts
 {
-    public function __construct(private readonly Catalog $catalog) {}
+    public function __construct(private Catalog $catalog) {}
 
     public function sets(array $disabled): array
     {

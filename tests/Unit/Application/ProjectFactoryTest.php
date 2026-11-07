@@ -43,7 +43,7 @@ function withFactoryFakeComposer(callable $callback, int $exitCode = 0): void
 
 function projectFactory(): ProjectFactory
 {
-    $catalog = (new DefinitionLoader(__DIR__ . '/../../../resources/definitions'))->load();
+    $catalog = new DefinitionLoader(__DIR__ . '/../../../resources/definitions')->load();
     $resolver = new SelectionResolver($catalog);
 
     return new ProjectFactory(

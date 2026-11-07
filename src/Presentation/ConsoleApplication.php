@@ -37,7 +37,7 @@ final class ConsoleApplication extends Application
         parent::__construct("Mage-OS Installer", "0.0.9");
         $this->logo = new ApplicationLogo();
         $definitions = dirname(__DIR__, 2) . '/resources/definitions';
-        $catalog = (new CatalogRepository(new DefinitionLoader($definitions)))->current();
+        $catalog = new CatalogRepository(new DefinitionLoader($definitions))->current();
         $resolver = new SelectionResolver($catalog);
         $factory = new ProjectFactory(
             $resolver,

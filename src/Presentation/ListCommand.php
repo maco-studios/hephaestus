@@ -27,7 +27,7 @@ final class ListCommand extends SymfonyListCommand
      *
      * @var list<string>
      */
-    private const BUILT_IN_COMMANDS = ['help', 'list', 'completion', '_complete'];
+    private const array BUILT_IN_COMMANDS = ['help', 'list', 'completion', '_complete'];
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -54,7 +54,7 @@ final class ListCommand extends SymfonyListCommand
         // Describe options only, not the full application definition — that
         // also carries the "command" argument Symfony uses internally to
         // route to a command, which isn't meant to show up here.
-        (new DescriptorHelper())->describe($output, new InputDefinition($application->getDefinition()->getOptions()));
+        new DescriptorHelper()->describe($output, new InputDefinition($application->getDefinition()->getOptions()));
 
         $output->writeln('');
         $output->writeln('');

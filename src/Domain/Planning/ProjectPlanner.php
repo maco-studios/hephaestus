@@ -17,9 +17,9 @@ use MageOsInstaller\Domain\Catalog\Catalog;
 use MageOsInstaller\Domain\Selection\ProjectSelection;
 use InvalidArgumentException;
 
-final class ProjectPlanner
+final readonly class ProjectPlanner
 {
-    public function __construct(private readonly Catalog $catalog) {}
+    public function __construct(private Catalog $catalog) {}
 
     public function plan(ProjectSelection $selection): ProjectPlan
     {

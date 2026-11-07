@@ -16,16 +16,16 @@ use MageOsInstaller\Domain\Selection\ProjectSelection;
 use MageOsInstaller\Infrastructure\Catalog\DefinitionLoader;
 
 it('does not select stock sets by default in additive mode', function (): void {
-    $catalog = (new DefinitionLoader(__DIR__ . '/../../../resources/definitions'))->load();
-    $plan = (new ProjectPlanner($catalog))->plan(new ProjectSelection('latest', mode: 'additive'));
+    $catalog = new DefinitionLoader(__DIR__ . '/../../../resources/definitions')->load();
+    $plan = new ProjectPlanner($catalog)->plan(new ProjectSelection('latest', mode: 'additive'));
 
     expect($plan->requires)->not->toHaveKey('mage-os/product-minimal-edition')
         ->and($plan->requires)->not->toHaveKey('mage-os/module-wishlist');
 });
 
 it('adds only explicitly selected sets in additive mode', function (): void {
-    $catalog = (new DefinitionLoader(__DIR__ . '/../../../resources/definitions'))->load();
-    $plan = (new ProjectPlanner($catalog))->plan(new ProjectSelection('latest', mode: 'additive', enabledSets: ['wishlist']));
+    $catalog = new DefinitionLoader(__DIR__ . '/../../../resources/definitions')->load();
+    $plan = new ProjectPlanner($catalog)->plan(new ProjectSelection('latest', mode: 'additive', enabledSets: ['wishlist']));
 
     expect($plan->requires)->toHaveKey('mage-os/module-wishlist');
 });

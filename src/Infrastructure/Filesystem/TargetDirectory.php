@@ -15,9 +15,9 @@ namespace MageOsInstaller\Infrastructure\Filesystem;
 
 use RuntimeException;
 
-final class TargetDirectory
+final readonly class TargetDirectory
 {
-    public function __construct(public readonly string $path) {}
+    public function __construct(public string $path) {}
 
     public function assertSafe(bool $force = false): void
     {

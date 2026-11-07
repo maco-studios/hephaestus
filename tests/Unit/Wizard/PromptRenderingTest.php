@@ -29,14 +29,14 @@ it('collects stock feature sets while honoring disabled sets', function (): void
         'wishlist' => ['label' => 'Wishlist', 'description' => 'Wishlist support'],
     ], [], [], [], []);
 
-    $selected = (new FeatureSelectionPrompts($catalog))->sets(['wishlist']);
+    $selected = new FeatureSelectionPrompts($catalog)->sets(['wishlist']);
 
     expect($selected)->toBe(['wishlist']);
 });
 
 it('renders select prompts with a side information panel', function (): void {
     Prompt::fake();
-    $prompt = new SelectPrompt('Choose a profile', ['full' => 'Full profile', 'minimal' => 'Minimal profile'], info: 'A profile with all Mage-OS features.', hint: 'Use arrows');
+    $prompt = new SelectPrompt('Choose a profile', ['full' => 'Full profile', 'minimal' => 'Minimal profile'], hint: 'Use arrows', info: 'A profile with all Mage-OS features.');
 
     $rendered = (string) (new SideInfoSelectRenderer($prompt))($prompt);
 
@@ -59,7 +59,7 @@ it('delegates select rendering when the prompt has no side information or is fin
 
 it('renders multi-select prompts with active and selected states', function (): void {
     Prompt::fake();
-    $prompt = new MultiSelectPrompt('Choose features', ['search' => 'Search', 'wishlist' => 'Wishlist'], ['search'], info: 'Select the features to keep.', hint: 'Space toggles');
+    $prompt = new MultiSelectPrompt('Choose features', ['search' => 'Search', 'wishlist' => 'Wishlist'], ['search'], hint: 'Space toggles', info: 'Select the features to keep.');
 
     $rendered = (string) (new SideInfoMultiSelectRenderer($prompt))($prompt);
 

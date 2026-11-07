@@ -17,7 +17,7 @@ use InvalidArgumentException;
 
 final class InstallationStateMachine
 {
-    private const TRANSITIONS = [
+    private const array TRANSITIONS = [
         'planned' => ['generated', 'cancelled', 'failed'],
         'generated' => ['installed', 'deferred', 'cancelled', 'failed'],
         'installed' => [],

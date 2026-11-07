@@ -23,7 +23,7 @@ final class SideInfoMultiSelectRenderer extends Renderer
 {
     use DrawsScrollbars;
 
-    public function __invoke(MultiSelectPrompt $prompt)
+    public function __invoke(MultiSelectPrompt $prompt): string|static
     {
         if ($prompt->state !== 'initial' && $prompt->state !== 'active') {
             return (new MultiSelectPromptRenderer($prompt))($prompt);
@@ -36,7 +36,7 @@ final class SideInfoMultiSelectRenderer extends Renderer
         }
 
         $sideWidth = min(44, max(24, $this->contentWidth($description) + 4));
-        $optionWidth = max(array_map(fn($option) => $this->contentWidth((string) $option), $prompt->options));
+        $optionWidth = max(array_map($this->contentWidth(...), $prompt->options));
         $mainWidth = min(
             max(36, $optionWidth + 8),
             max(36, $terminalWidth - $sideWidth - 5),

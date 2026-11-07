@@ -15,9 +15,9 @@ namespace MageOsInstaller\Infrastructure\Composer;
 
 use MageOsInstaller\Infrastructure\Process\ProcessRunner;
 
-final class ComposerInstaller
+final readonly class ComposerInstaller
 {
-    public function __construct(private readonly ProcessRunner $runner) {}
+    public function __construct(private ProcessRunner $runner) {}
 
     public function install(string $cwd, ?callable $onOutput = null): array
     {
@@ -26,7 +26,7 @@ final class ComposerInstaller
 
     public function createProject(string $package, ?string $version, string $repository, string $target, ?callable $onOutput = null): array
     {
-        $packageReference = $version !== null && $version !== '' && $version !== 'latest'
+        $packageReference = !in_array($version, [null, '', 'latest'], true)
             ? $package . ':' . $version
             : $package;
 

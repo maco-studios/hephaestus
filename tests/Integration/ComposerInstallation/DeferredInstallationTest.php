@@ -14,5 +14,5 @@ declare(strict_types=1);
 use MageOsInstaller\Domain\Installation\InstallationResult;
 
 it('represents deferred installation explicitly', function (): void {
-    expect((new InstallationResult('deferred'))->isSuccessful())->toBeTrue();
+    expect(new InstallationResult('deferred')->isSuccessful())->toBeTrue();
 });
