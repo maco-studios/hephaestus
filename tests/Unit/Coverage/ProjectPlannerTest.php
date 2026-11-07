@@ -52,7 +52,7 @@ function projectPlannerCoverageCatalog(array $overrides = []): Catalog
 it('reports every unknown add-on in the public planning error', function (): void {
     $planner = new ProjectPlanner(projectPlannerCoverageCatalog());
 
-    expect(fn (): mixed => $planner->plan(new ProjectSelection(
+    expect(fn(): mixed => $planner->plan(new ProjectSelection(
         'latest',
         disabledSets: ['missing-set'],
         enabledAddons: ['missing-addon'],
@@ -88,7 +88,7 @@ it('uses the latest template fallback when the latest release template is incomp
 it('rejects an unknown enabled set before attempting to add its packages', function (): void {
     $planner = new ProjectPlanner(projectPlannerCoverageCatalog());
 
-    expect(fn (): mixed => $planner->plan(new ProjectSelection(
+    expect(fn(): mixed => $planner->plan(new ProjectSelection(
         'latest',
         mode: 'additive',
         enabledSets: ['missing-set'],
@@ -98,7 +98,7 @@ it('rejects an unknown enabled set before attempting to add its packages', funct
 it('rejects an unknown enabled layer before attempting to add its packages', function (): void {
     $planner = new ProjectPlanner(projectPlannerCoverageCatalog());
 
-    expect(fn (): mixed => $planner->plan(new ProjectSelection(
+    expect(fn(): mixed => $planner->plan(new ProjectSelection(
         'latest',
         mode: 'additive',
         enabledLayers: ['missing-layer'],
