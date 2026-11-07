@@ -8,34 +8,30 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
- * @see https://github.com/maco-studios/mage-os-installer
+ * @see https://github.com/maco-studios/hephaestus
  */
 
-namespace MageOsInstaller\Presentation\Output;
+namespace Hephaestus\Presentation\Output;
 
 final class ApplicationLogo
 {
-    public function render(string $title = 'MAGE-OS', ?string $version = null): string
+    public function render(string $title = 'HEPHAESTUS', ?string $version = null): string
     {
         $versionSuffix = $version === null ? '' : ' ' . $version;
 
         return sprintf(<<<'LOGO'
-<fg=red>
-                ███               ██
-             ██      ██       ██      ██
-          █              █ █              █
-      ██                                     ██
-   ██                                           ██
-█               ███              ████             ██
-█            ██████   █       █████    █       █████
-█         █████████      █ ████████       ██████████</>
-<fg=red>█        ██████████       █████████        █████████</>
-<fg=red>█        ██████████       █████████        █████████
- ██      ███████████      ████████ ██      ████████
-     █   █████        █   █████        █   █████
-        ███              ███              ███</>
+<fg=yellow>                      ╱╲</>
+<fg=yellow>                     ╱  ╲</>
+<fg=red>               ▄▄▄▄▄╱    ╲▄▄▄▄▄
+             ▄███████████████████▄
+            █████████████████████</>
+<fg=yellow>           ▐████</><fg=red>███████████</><fg=yellow>████▌</>
+<fg=red>            █████████████████████
+              ▀▀███████████████▀▀
+                 ▀▀▀███████▀▀▀
+                     ▀▀▀▀▀</>
 <fg=cyan>                 %s%s</>
-<fg=gray>  Community-driven commerce project installer</>
+<fg=gray>  The forge for standalone Mage-OS projects</>
 
 LOGO, $title, $versionSuffix);
     }
