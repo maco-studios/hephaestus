@@ -20,18 +20,8 @@ final class ApplicationLogo
         $versionSuffix = $version === null ? '' : ' ' . $version;
 
         return sprintf(<<<'LOGO'
-<fg=yellow>                      ╱╲</>
-<fg=yellow>                     ╱  ╲</>
-<fg=red>               ▄▄▄▄▄╱    ╲▄▄▄▄▄
-             ▄███████████████████▄
-            █████████████████████</>
-<fg=yellow>           ▐████</><fg=red>███████████</><fg=yellow>████▌</>
-<fg=red>            █████████████████████
-              ▀▀███████████████▀▀
-                 ▀▀▀███████▀▀▀
-                     ▀▀▀▀▀</>
-<fg=cyan>                 %s%s</>
-<fg=gray>  The forge for standalone Mage-OS projects</>
+<fg=cyan>%s%s</>
+<fg=gray>The forge for standalone Mage-OS projects</>
 
 LOGO, $title, $versionSuffix);
     }
