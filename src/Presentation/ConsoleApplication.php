@@ -34,7 +34,7 @@ final class ConsoleApplication extends Application
 
     public function __construct()
     {
-        parent::__construct("Hephaestus", "0.0.9");
+        parent::__construct("Hephaestus", "0.0.20");
         $this->logo = new ApplicationLogo();
         $definitions = dirname(__DIR__, 2) . '/resources/definitions';
         $catalog = new CatalogRepository(new DefinitionLoader($definitions))->current();

@@ -21,7 +21,7 @@ it('builds the application with the branded version output', function (): void {
 
     expect($application->getLongVersion())
         ->toContain('Hephaestus')
-        ->toContain('0.0.9');
+        ->toContain('0.0.20');
 });
 it('renders the concise installer command list', function (): void {
     $application = new Application('Test', '1.0');
