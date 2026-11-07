@@ -18,3 +18,7 @@ it('preserves the wizard installation preference in the project selection', func
 
     expect($selection->install)->toBeFalse();
 });
+
+it('rejects unsupported installation modes', function (): void {
+    new \MageOsInstaller\Domain\Selection\ProjectSelection('latest', mode: 'invalid');
+})->throws(InvalidArgumentException::class);
