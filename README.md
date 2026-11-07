@@ -3,6 +3,10 @@
 [![Coverage](.github/assets/coverage.svg)](https://github.com/maco-studios/mage-os-installer/actions/workflows/tests.yml)
 [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?logo=buymeacoffee&logoColor=000000&style=for-the-badge)](https://buymeacoffee.com/macosauresx)
 
+<video src=".github/assets/video/preview.mp4" controls muted playsinline width="100%">
+  <a href=".github/assets/video/preview.mp4">Watch the installer preview</a>
+</video>
+
 Create a tailored, standalone Mage-OS project through an interactive terminal wizard.
 
 > Mage-OS Installer is pre-1.0. Catalog entries, CLI options, and generated-project conventions may change between releases.
@@ -63,10 +67,6 @@ The wizard composes a standalone Mage-OS project from catalog definitions coveri
 - optional third-party add-ons and repositories.
 
 The generated `composer.json` contains the resolved dependencies and replacements for your selections.
-
-## Preview
-
-[Watch the installer preview](.github/assets/video/preview.mp4)
 
 ## Documentation
 
