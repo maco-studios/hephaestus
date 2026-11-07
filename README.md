@@ -80,6 +80,12 @@ The generated `composer.json` contains the resolved dependencies and replacement
 
 Report bugs and catalog corrections through [GitHub Issues](https://github.com/maco-studios/mage-os-installer/issues). Do not commit credentials, `auth.json`, generated `vendor/` directories, or generated projects.
 
+## Acknowledgements
+
+With gratitude to [Cresset Tools and the MageOS Maker contributors](https://github.com/cresset-tools/mageos-maker), whose work provided the foundation and inspiration for this project.
+
+If you enjoy Mage-OS Installer, please visit the original project, learn more about MageOS Maker, and support or contribute to the work that made this possible.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
