@@ -8,13 +8,13 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
- * @see https://github.com/maco-studios/mage-os-installer
+ * @see https://github.com/maco-studios/hephaestus
  */
 
-namespace MageOsInstaller\Infrastructure\Composer;
+namespace Hephaestus\Infrastructure\Composer;
 
 use Composer\Script\Event;
-use MageOsInstaller\Domain\Selection\ProjectName;
+use Hephaestus\Domain\Selection\ProjectName;
 use RuntimeException;
 use Throwable;
 
@@ -23,35 +23,35 @@ final class BootstrapScript
     public static function postCreateProject(Event $event): void
     {
         $workingDirectory = getcwd() ?: dirname(__DIR__, 3);
-        $binary = $workingDirectory . '/bin/mageos';
-        if (!is_file($binary) || getenv('MAGEOS_INSTALLER_SKIP') === '1') {
+        $binary = $workingDirectory . '/bin/hephaestus';
+        if (!is_file($binary) || getenv('HEPHAESTUS_SKIP') === '1') {
             return;
         }
 
         $implicitBootstrapDirectory = self::isImplicitBootstrapDirectory($event, $workingDirectory);
-        $stagingDirectory = dirname($workingDirectory) . '/.mageos-project-' . bin2hex(random_bytes(8));
+        $stagingDirectory = dirname($workingDirectory) . '/.hephaestus-project-' . bin2hex(random_bytes(8));
         if (!mkdir($stagingDirectory, 0775, true) && !is_dir($stagingDirectory)) {
             throw new RuntimeException("Unable to create staging directory: {$stagingDirectory}");
         }
 
         try {
-            $previousDisplayTarget = getenv('MAGEOS_DISPLAY_TARGET');
-            $previousImplicitBootstrap = getenv('MAGEOS_IMPLICIT_BOOTSTRAP');
-            putenv('MAGEOS_DISPLAY_TARGET=' . $workingDirectory);
-            putenv('MAGEOS_IMPLICIT_BOOTSTRAP=' . ($implicitBootstrapDirectory ? '1' : '0'));
+            $previousDisplayTarget = getenv('HEPHAESTUS_DISPLAY_TARGET');
+            $previousImplicitBootstrap = getenv('HEPHAESTUS_IMPLICIT_BOOTSTRAP');
+            putenv('HEPHAESTUS_DISPLAY_TARGET=' . $workingDirectory);
+            putenv('HEPHAESTUS_IMPLICIT_BOOTSTRAP=' . ($implicitBootstrapDirectory ? '1' : '0'));
             $command = escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg($binary) . ' new ' . escapeshellarg($stagingDirectory);
             try {
                 passthru($command, $exitCode);
             } finally {
                 if ($previousDisplayTarget === false) {
-                    putenv('MAGEOS_DISPLAY_TARGET');
+                    putenv('HEPHAESTUS_DISPLAY_TARGET');
                 } else {
-                    putenv('MAGEOS_DISPLAY_TARGET=' . $previousDisplayTarget);
+                    putenv('HEPHAESTUS_DISPLAY_TARGET=' . $previousDisplayTarget);
                 }
                 if ($previousImplicitBootstrap === false) {
-                    putenv('MAGEOS_IMPLICIT_BOOTSTRAP');
+                    putenv('HEPHAESTUS_IMPLICIT_BOOTSTRAP');
                 } else {
-                    putenv('MAGEOS_IMPLICIT_BOOTSTRAP=' . $previousImplicitBootstrap);
+                    putenv('HEPHAESTUS_IMPLICIT_BOOTSTRAP=' . $previousImplicitBootstrap);
                 }
             }
             if ($exitCode !== 0) {

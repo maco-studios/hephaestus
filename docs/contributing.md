@@ -1,6 +1,6 @@
 # Contributor development guide
 
-This guide is the recommended development-start process for changing Mage-OS Installer itself.
+This guide is the recommended development-start process for changing Hephaestus itself.
 
 ## 1. Prepare the repository
 
@@ -8,7 +8,7 @@ Use PHP 8.2 or newer and Composer 2.x:
 
 ```bash
 composer install
-php bin/mageos list
+php bin/hephaestus list
 ```
 
 The second command confirms that the local CLI boots.
@@ -57,8 +57,8 @@ composer ci:check
 For CLI changes, run:
 
 ```bash
-php bin/mageos new --help
-php bin/mageos new ../tmp-mageos-project --no-interaction --dry-run --format=json
+php bin/hephaestus new --help
+php bin/hephaestus new ../tmp-mageos-project --no-interaction --dry-run --format=json
 ```
 
 For generation changes, run the relevant integration matrix and inspect the generated Composer output. Remove any manually created generated directory when it is no longer needed.

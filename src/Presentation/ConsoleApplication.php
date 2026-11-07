@@ -8,24 +8,24 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
- * @see https://github.com/maco-studios/mage-os-installer
+ * @see https://github.com/maco-studios/hephaestus
  */
 
-namespace MageOsInstaller\Presentation;
+namespace Hephaestus\Presentation;
 
-use MageOsInstaller\Application\ProjectFactory;
-use MageOsInstaller\Application\Handoff\HandoffRenderer;
-use MageOsInstaller\Application\Wizard\InteractiveWizard;
-use MageOsInstaller\Domain\Planning\ProjectPlanner;
+use Hephaestus\Application\ProjectFactory;
+use Hephaestus\Application\Handoff\HandoffRenderer;
+use Hephaestus\Application\Wizard\InteractiveWizard;
+use Hephaestus\Domain\Planning\ProjectPlanner;
 use Symfony\Component\Console\Command\ListCommand as SymfonyListCommand;
-use MageOsInstaller\Domain\Selection\SelectionResolver;
-use MageOsInstaller\Infrastructure\Catalog\CatalogRepository;
-use MageOsInstaller\Infrastructure\Catalog\DefinitionLoader;
-use MageOsInstaller\Infrastructure\Composer\ComposerInstaller;
-use MageOsInstaller\Infrastructure\Composer\ComposerJsonRenderer;
-use MageOsInstaller\Infrastructure\Filesystem\ProjectWriter;
-use MageOsInstaller\Infrastructure\Process\ProcessRunner;
-use MageOsInstaller\Presentation\Output\ApplicationLogo;
+use Hephaestus\Domain\Selection\SelectionResolver;
+use Hephaestus\Infrastructure\Catalog\CatalogRepository;
+use Hephaestus\Infrastructure\Catalog\DefinitionLoader;
+use Hephaestus\Infrastructure\Composer\ComposerInstaller;
+use Hephaestus\Infrastructure\Composer\ComposerJsonRenderer;
+use Hephaestus\Infrastructure\Filesystem\ProjectWriter;
+use Hephaestus\Infrastructure\Process\ProcessRunner;
+use Hephaestus\Presentation\Output\ApplicationLogo;
 use Symfony\Component\Console\Application;
 
 final class ConsoleApplication extends Application
@@ -34,7 +34,7 @@ final class ConsoleApplication extends Application
 
     public function __construct()
     {
-        parent::__construct("Mage-OS Installer", "0.0.9");
+        parent::__construct("Hephaestus", "0.0.9");
         $this->logo = new ApplicationLogo();
         $definitions = dirname(__DIR__, 2) . '/resources/definitions';
         $catalog = new CatalogRepository(new DefinitionLoader($definitions))->current();

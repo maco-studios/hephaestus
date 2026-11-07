@@ -8,10 +8,10 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
- * @see https://github.com/maco-studios/mage-os-installer
+ * @see https://github.com/maco-studios/hephaestus
  */
 
-use MageOsInstaller\Domain\Catalog\Catalog;
+use Hephaestus\Domain\Catalog\Catalog;
 
 it('preserves catalog data and uses the configured source version', function (): void {
     $catalog = new Catalog(

@@ -8,13 +8,13 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
- * @see https://github.com/maco-studios/mage-os-installer
+ * @see https://github.com/maco-studios/hephaestus
  */
 
-namespace MageOsInstaller\Application\Wizard;
+namespace Hephaestus\Application\Wizard;
 
-use MageOsInstaller\Domain\Selection\ProjectSelection;
-use MageOsInstaller\Presentation\Input\SelectionInput;
+use Hephaestus\Domain\Selection\ProjectSelection;
+use Hephaestus\Presentation\Input\SelectionInput;
 use Symfony\Component\Console\Input\InputInterface;
 
 final readonly class NonInteractiveSelection

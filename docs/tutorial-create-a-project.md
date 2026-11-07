@@ -18,7 +18,7 @@ The installer itself does not provide Magento or Mage-OS credentials.
 From the directory where you want the new project, run:
 
 ```bash
-composer create-project maco-studios/mage-os-installer my-mageos-project
+composer create-project maco-studios/hephaestus my-mageos-project
 ```
 
 Composer downloads the installer as a bootstrap package, starts the wizard, and then replaces the bootstrap contents with the generated standalone Mage-OS project. If you are developing the installer from a checkout, install its dependencies instead:
@@ -27,14 +27,14 @@ Composer downloads the installer as a bootstrap package, starts the wizard, and 
 composer install
 ```
 
-When no destination is supplied, Composer initially creates its default `mage-os-installer/` bootstrap directory. After the wizard collects the Composer project name, the installer moves the generated project into the project-name folder, such as `storefront/` for `acme/storefront`, and removes the temporary bootstrap directory. Pass a destination explicitly when you want to choose the final folder name.
+When no destination is supplied, Composer initially creates its default `hephaestus/` bootstrap directory. After the wizard collects the Composer project name, the installer moves the generated project into the project-name folder, such as `storefront/` for `acme/storefront`, and removes the temporary bootstrap directory. Pass a destination explicitly when you want to choose the final folder name.
 
 ## Generate a project from a checkout
 
 Choose a new, empty target directory:
 
 ```bash
-php bin/mageos new ../my-mageos-project
+php bin/hephaestus new ../my-mageos-project
 ```
 
 The wizard asks for the release, starting profile, profile-group choices, feature sets, layers, and optional add-ons, then displays the plan before generating the project.
@@ -59,7 +59,7 @@ If the installer completed dependency installation, Composer has already populat
 Use a dry run to inspect a composition without writing a project:
 
 ```bash
-php bin/mageos new ../my-mageos-hyva \
+php bin/hephaestus new ../my-mageos-hyva \
   --profile=mageos-minimal \
   --profile-group=theme:hyva \
   --enable-addon=hyva \

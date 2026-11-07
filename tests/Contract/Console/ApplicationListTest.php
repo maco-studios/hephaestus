@@ -8,11 +8,11 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
- * @see https://github.com/maco-studios/mage-os-installer
+ * @see https://github.com/maco-studios/hephaestus
  */
 
-use MageOsInstaller\Presentation\ConsoleApplication;
-use MageOsInstaller\Presentation\ListCommand;
+use Hephaestus\Presentation\ConsoleApplication;
+use Hephaestus\Presentation\ListCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -20,7 +20,7 @@ it('builds the application with the branded version output', function (): void {
     $application = new ConsoleApplication();
 
     expect($application->getLongVersion())
-        ->toContain('Mage-OS Installer')
+        ->toContain('Hephaestus')
         ->toContain('0.0.9');
 });
 it('renders the concise installer command list', function (): void {

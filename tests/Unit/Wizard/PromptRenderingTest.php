@@ -8,18 +8,18 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
- * @see https://github.com/maco-studios/mage-os-installer
+ * @see https://github.com/maco-studios/hephaestus
  */
 
 use Laravel\Prompts\Key;
 use Laravel\Prompts\MultiSelectPrompt;
 use Laravel\Prompts\Prompt;
 use Laravel\Prompts\SelectPrompt;
-use MageOsInstaller\Application\Wizard\FeatureSelectionPrompts;
-use MageOsInstaller\Application\Wizard\PromptTheme;
-use MageOsInstaller\Application\Wizard\SideInfoMultiSelectRenderer;
-use MageOsInstaller\Application\Wizard\SideInfoSelectRenderer;
-use MageOsInstaller\Domain\Catalog\Catalog;
+use Hephaestus\Application\Wizard\FeatureSelectionPrompts;
+use Hephaestus\Application\Wizard\PromptTheme;
+use Hephaestus\Application\Wizard\SideInfoMultiSelectRenderer;
+use Hephaestus\Application\Wizard\SideInfoSelectRenderer;
+use Hephaestus\Domain\Catalog\Catalog;
 
 it('collects stock feature sets while honoring disabled sets', function (): void {
     Prompt::fake([Key::ENTER]);

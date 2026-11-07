@@ -2,7 +2,7 @@
 
 ## Our standard
 
-We are committed to making participation in Mage-OS Installer respectful, constructive, and welcoming to everyone.
+We are committed to making participation in Hephaestus respectful, constructive, and welcoming to everyone.
 
 Examples of behavior that contribute to a positive environment include:
 

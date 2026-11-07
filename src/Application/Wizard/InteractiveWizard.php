@@ -8,15 +8,15 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
- * @see https://github.com/maco-studios/mage-os-installer
+ * @see https://github.com/maco-studios/hephaestus
  */
 
-namespace MageOsInstaller\Application\Wizard;
+namespace Hephaestus\Application\Wizard;
 
-use MageOsInstaller\Domain\Catalog\Catalog;
-use MageOsInstaller\Domain\Selection\ProjectName;
-use MageOsInstaller\Domain\Selection\ProjectSelection;
-use MageOsInstaller\Domain\Selection\SelectionResolver;
+use Hephaestus\Domain\Catalog\Catalog;
+use Hephaestus\Domain\Selection\ProjectName;
+use Hephaestus\Domain\Selection\ProjectSelection;
+use Hephaestus\Domain\Selection\SelectionResolver;
 
 use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\multiselect;

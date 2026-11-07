@@ -8,20 +8,20 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
- * @see https://github.com/maco-studios/mage-os-installer
+ * @see https://github.com/maco-studios/hephaestus
  */
 
-use MageOsInstaller\Domain\Selection\ProjectSelection;
-use MageOsInstaller\Domain\Selection\SelectionResolver;
-use MageOsInstaller\Application\ProjectFactory;
-use MageOsInstaller\Domain\Planning\ProjectPlanner;
-use MageOsInstaller\Infrastructure\Catalog\CatalogRepository;
-use MageOsInstaller\Infrastructure\Catalog\DefinitionLoader;
-use MageOsInstaller\Infrastructure\Composer\ComposerInstaller;
-use MageOsInstaller\Infrastructure\Composer\ComposerJsonRenderer;
-use MageOsInstaller\Infrastructure\Filesystem\TargetDirectory;
-use MageOsInstaller\Infrastructure\Filesystem\ProjectWriter;
-use MageOsInstaller\Infrastructure\Process\ProcessRunner;
+use Hephaestus\Domain\Selection\ProjectSelection;
+use Hephaestus\Domain\Selection\SelectionResolver;
+use Hephaestus\Application\ProjectFactory;
+use Hephaestus\Domain\Planning\ProjectPlanner;
+use Hephaestus\Infrastructure\Catalog\CatalogRepository;
+use Hephaestus\Infrastructure\Catalog\DefinitionLoader;
+use Hephaestus\Infrastructure\Composer\ComposerInstaller;
+use Hephaestus\Infrastructure\Composer\ComposerJsonRenderer;
+use Hephaestus\Infrastructure\Filesystem\TargetDirectory;
+use Hephaestus\Infrastructure\Filesystem\ProjectWriter;
+use Hephaestus\Infrastructure\Process\ProcessRunner;
 
 it('writes multiple visible Mage-OS project compositions under tests/.generated', function (): void {
     $catalog = new CatalogRepository(new DefinitionLoader(__DIR__ . '/../../../resources/definitions'))->current();
@@ -49,8 +49,8 @@ it('writes multiple visible Mage-OS project compositions under tests/.generated'
         )),
     ];
 
-    $hyvaAvailable = getenv('MAGEOS_HYVA_PROJECT') !== false
-        && getenv('MAGEOS_HYVA_PROJECT') !== '';
+    $hyvaAvailable = getenv('HEPHAESTUS_HYVA_PROJECT') !== false
+        && getenv('HEPHAESTUS_HYVA_PROJECT') !== '';
     if (!$hyvaAvailable) {
         unset($selections['custom-hyva']);
     }
@@ -62,7 +62,7 @@ it('writes multiple visible Mage-OS project compositions under tests/.generated'
             $resolved = $resolver->resolve($selection);
             $writer->write($target, new ProjectPlanner($catalog)->plan($resolved));
             $install = $installer->install($targetPath);
-            $result = new MageOsInstaller\Domain\Installation\InstallationResult(
+            $result = new Hephaestus\Domain\Installation\InstallationResult(
                 ($install['exit_code'] ?? 1) === 0 ? 'installed' : 'failed',
                 ['generated' => $targetPath],
                 ($install['exit_code'] ?? 1) === 0 ? [] : [trim($install['error'] ?: $install['output'])],
@@ -88,8 +88,8 @@ it('writes multiple visible Mage-OS project compositions under tests/.generated'
             ->and($outputRoot . '/' . $name . '/lib')->toBeDirectory()
             ->and($outputRoot . '/' . $name . '/var')->toBeDirectory()
             ->and($outputRoot . '/' . $name . '/vendor')->toBeDirectory()
-            ->and($outputRoot . '/' . $name . '/mageos-installer.json')->not->toBeFile()
-            ->and($outputRoot . '/' . $name . '/MAGEOS_SETUP.md')->not->toBeFile();
+            ->and($outputRoot . '/' . $name . '/hephaestus-installer.json')->not->toBeFile()
+            ->and($outputRoot . '/' . $name . '/HEPHAESTUS_SETUP.md')->not->toBeFile();
     }
 
     $full = json_decode((string) file_get_contents($outputRoot . '/full/composer.json'), true);

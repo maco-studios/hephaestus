@@ -1,6 +1,6 @@
-# Mage-OS Installer documentation
+# Hephaestus documentation
 
-Mage-OS Installer is a Composer project factory for Magento and Mage-OS users. It turns a project composition into a generated, standalone Mage-OS project.
+Hephaestus is a Composer project factory for Magento and Mage-OS users. It turns a project composition into a generated, standalone Mage-OS project.
 
 ## Choose a path
 
@@ -18,7 +18,7 @@ Mage-OS Installer is a Composer project factory for Magento and Mage-OS users. I
 4. Commit the generated project's `composer.json` and configuration only after reviewing the plan.
 5. Keep the installer repository and the generated Mage-OS application as separate development concerns.
 
-The generated application does not need Mage-OS Installer at runtime.
+The generated application does not need Hephaestus at runtime.
 
 ## Audience
 

@@ -8,10 +8,10 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
- * @see https://github.com/maco-studios/mage-os-installer
+ * @see https://github.com/maco-studios/hephaestus
  */
 
-use MageOsInstaller\Presentation\Output\GenerationScreen;
+use Hephaestus\Presentation\Output\GenerationScreen;
 use Symfony\Component\Console\Output\BufferedOutput;
 
 it('renders a bounded generation screen with the latest output', function (): void {

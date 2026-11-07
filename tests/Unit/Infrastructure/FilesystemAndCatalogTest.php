@@ -8,13 +8,13 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
- * @see https://github.com/maco-studios/mage-os-installer
+ * @see https://github.com/maco-studios/hephaestus
  */
 
-use MageOsInstaller\Domain\Catalog\Catalog;
-use MageOsInstaller\Infrastructure\Catalog\CatalogRepository;
-use MageOsInstaller\Infrastructure\Catalog\DefinitionLoader;
-use MageOsInstaller\Infrastructure\Filesystem\TargetDirectory;
+use Hephaestus\Domain\Catalog\Catalog;
+use Hephaestus\Infrastructure\Catalog\CatalogRepository;
+use Hephaestus\Infrastructure\Catalog\DefinitionLoader;
+use Hephaestus\Infrastructure\Filesystem\TargetDirectory;
 
 it('selects catalog defaults and falls back when definitions are absent', function (): void {
     $catalog = new Catalog(

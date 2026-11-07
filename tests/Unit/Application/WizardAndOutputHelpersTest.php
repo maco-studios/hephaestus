@@ -8,17 +8,17 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
- * @see https://github.com/maco-studios/mage-os-installer
+ * @see https://github.com/maco-studios/hephaestus
  */
 
-use MageOsInstaller\Application\Handoff\ResumeInstructions;
-use MageOsInstaller\Application\Wizard\NonInteractiveSelection;
-use MageOsInstaller\Application\Wizard\SelectionFeedback;
-use MageOsInstaller\Domain\Selection\ProjectSelection;
-use MageOsInstaller\Presentation\Input\SelectionInput;
-use MageOsInstaller\Presentation\Output\JsonOutput;
-use MageOsInstaller\Presentation\Output\PlanRenderer;
-use MageOsInstaller\Presentation\Output\TextOutput;
+use Hephaestus\Application\Handoff\ResumeInstructions;
+use Hephaestus\Application\Wizard\NonInteractiveSelection;
+use Hephaestus\Application\Wizard\SelectionFeedback;
+use Hephaestus\Domain\Selection\ProjectSelection;
+use Hephaestus\Presentation\Input\SelectionInput;
+use Hephaestus\Presentation\Output\JsonOutput;
+use Hephaestus\Presentation\Output\PlanRenderer;
+use Hephaestus\Presentation\Output\TextOutput;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputOption;

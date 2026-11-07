@@ -8,22 +8,22 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
- * @see https://github.com/maco-studios/mage-os-installer
+ * @see https://github.com/maco-studios/hephaestus
  */
 
 use Symfony\Component\Console\Tester\CommandTester;
-use MageOsInstaller\Application\Handoff\HandoffRenderer;
-use MageOsInstaller\Application\ProjectFactory;
-use MageOsInstaller\Application\Wizard\InteractiveWizard;
-use MageOsInstaller\Domain\Planning\ProjectPlanner;
-use MageOsInstaller\Domain\Selection\SelectionResolver;
-use MageOsInstaller\Infrastructure\Catalog\CatalogRepository;
-use MageOsInstaller\Infrastructure\Catalog\DefinitionLoader;
-use MageOsInstaller\Infrastructure\Composer\ComposerInstaller;
-use MageOsInstaller\Infrastructure\Composer\ComposerJsonRenderer;
-use MageOsInstaller\Infrastructure\Filesystem\ProjectWriter;
-use MageOsInstaller\Infrastructure\Process\ProcessRunner;
-use MageOsInstaller\Presentation\NewCommand;
+use Hephaestus\Application\Handoff\HandoffRenderer;
+use Hephaestus\Application\ProjectFactory;
+use Hephaestus\Application\Wizard\InteractiveWizard;
+use Hephaestus\Domain\Planning\ProjectPlanner;
+use Hephaestus\Domain\Selection\SelectionResolver;
+use Hephaestus\Infrastructure\Catalog\CatalogRepository;
+use Hephaestus\Infrastructure\Catalog\DefinitionLoader;
+use Hephaestus\Infrastructure\Composer\ComposerInstaller;
+use Hephaestus\Infrastructure\Composer\ComposerJsonRenderer;
+use Hephaestus\Infrastructure\Filesystem\ProjectWriter;
+use Hephaestus\Infrastructure\Process\ProcessRunner;
+use Hephaestus\Presentation\NewCommand;
 
 it('supports a non-interactive dry run', function (): void {
     $catalog = new CatalogRepository(new DefinitionLoader(__DIR__ . '/../../resources/definitions'))->current();

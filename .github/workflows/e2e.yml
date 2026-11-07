@@ -11,7 +11,7 @@ on:
       - 'resources/definitions/**'
       - 'resources/catalog/**'
       - 'src/**'
-      - 'bin/mageos'
+      - 'bin/hephaestus'
       - 'tests/Integration/ProjectGeneration/**'
 
 env:

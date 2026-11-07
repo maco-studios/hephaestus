@@ -2,7 +2,7 @@
 
 ## The installer is a project factory
 
-Mage-OS Installer does not generate Magento modules. It selects and composes an existing Mage-OS project distribution, then writes a Composer configuration that reflects the choices. The result is a normal Mage-OS application that can be developed and deployed independently.
+Hephaestus does not generate Magento modules. It selects and composes an existing Mage-OS project distribution, then writes a Composer configuration that reflects the choices. The result is a normal Mage-OS application that can be developed and deployed independently.
 
 The main flow is:
 

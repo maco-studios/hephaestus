@@ -8,21 +8,21 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
- * @see https://github.com/maco-studios/mage-os-installer
+ * @see https://github.com/maco-studios/hephaestus
  */
 
-namespace MageOsInstaller\Presentation;
+namespace Hephaestus\Presentation;
 
-use MageOsInstaller\Application\Handoff\HandoffRenderer;
-use MageOsInstaller\Application\ProjectFactory;
-use MageOsInstaller\Application\Wizard\InteractiveWizard;
-use MageOsInstaller\Domain\Catalog\Catalog;
-use MageOsInstaller\Domain\Selection\ProjectSelection;
-use MageOsInstaller\Domain\Selection\ProjectName;
-use MageOsInstaller\Domain\Selection\SelectionResolver;
-use MageOsInstaller\Infrastructure\Filesystem\TargetDirectory;
-use MageOsInstaller\Presentation\Output\ApplicationLogo;
-use MageOsInstaller\Presentation\Output\GenerationScreen;
+use Hephaestus\Application\Handoff\HandoffRenderer;
+use Hephaestus\Application\ProjectFactory;
+use Hephaestus\Application\Wizard\InteractiveWizard;
+use Hephaestus\Domain\Catalog\Catalog;
+use Hephaestus\Domain\Selection\ProjectSelection;
+use Hephaestus\Domain\Selection\ProjectName;
+use Hephaestus\Domain\Selection\SelectionResolver;
+use Hephaestus\Infrastructure\Filesystem\TargetDirectory;
+use Hephaestus\Presentation\Output\ApplicationLogo;
+use Hephaestus\Presentation\Output\GenerationScreen;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -163,8 +163,8 @@ final class NewCommand extends Command
 
     private function displayTarget(ProjectSelection $selection, TargetDirectory $target): string
     {
-        $displayTarget = getenv('MAGEOS_DISPLAY_TARGET') ?: $target->path;
-        if (getenv('MAGEOS_IMPLICIT_BOOTSTRAP') === '1' && $selection->projectName !== null) {
+        $displayTarget = getenv('HEPHAESTUS_DISPLAY_TARGET') ?: $target->path;
+        if (getenv('HEPHAESTUS_IMPLICIT_BOOTSTRAP') === '1' && $selection->projectName !== null) {
             return dirname($displayTarget) . '/' . new ProjectName($selection->projectName)->directoryName();
         }
 

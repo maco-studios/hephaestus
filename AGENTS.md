@@ -2,15 +2,15 @@
 
 ## Project Structure
 
-- `src/` contains the PSR-4 `MageOsInstaller\` application, domain, infrastructure, and console presentation code.
-- `bin/mageos` is the local CLI entry point; `config/` contains application configuration.
+- `src/` contains the PSR-4 `Hephaestus\` application, domain, infrastructure, and console presentation code.
+- `bin/hephaestus` is the local CLI entry point; `config/` contains application configuration.
 - `resources/definitions/` stores profiles, sets, layers, and add-on catalog YAML; `resources/catalog/` stores release/template data.
 - `tests/Unit`, `tests/Contract`, and `tests/Integration` contain focused, CLI-contract, and project-generation coverage respectively.
 - `docs/` and `specs/` hold research and feature artifacts. Generated projects belong under `tests/.generated/` and must remain untracked.
 
 ## Build, Test, and Development Commands
 
-Install dependencies with `composer install`. Run the CLI locally with `php bin/mageos new <directory>` or inspect commands using `php bin/mageos list`.
+Install dependencies with `composer install`. Run the CLI locally with `php bin/hephaestus new <directory>` or inspect commands using `php bin/hephaestus list`.
 
 Use `vendor/bin/pest` for the full test suite, or pass a specific test path for fast feedback. Before submitting changes, run `composer ci:check`; it combines linting, Rector analysis, Composer normalization, and tests. Individual checks are available as `composer lint`, `composer rector`, `composer normalize`, and `composer validate --strict`. Append `:fix` only when intentionally applying formatter, Rector, or normalization changes.
 

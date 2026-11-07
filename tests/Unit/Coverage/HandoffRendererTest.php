@@ -8,11 +8,11 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
- * @see https://github.com/maco-studios/mage-os-installer
+ * @see https://github.com/maco-studios/hephaestus
  */
 
-use MageOsInstaller\Application\Handoff\HandoffRenderer;
-use MageOsInstaller\Domain\Installation\InstallationResult;
+use Hephaestus\Application\Handoff\HandoffRenderer;
+use Hephaestus\Domain\Installation\InstallationResult;
 
 it('renders every non-ready status with its status-specific symbol and details', function (): void {
     $plan = [

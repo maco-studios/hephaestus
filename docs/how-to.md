@@ -5,7 +5,7 @@
 Supply the choices as options and disable prompts:
 
 ```bash
-php bin/mageos new . \
+php bin/hephaestus new . \
   --no-interaction \
   --name=acme/my-mageos-project \
   --profile=mageos-minimal \
@@ -22,7 +22,7 @@ Repeat array options such as `--profile-group`, `--disable-set`, and `--enable-a
 Use `--dry-run` to resolve and plan the project without creating the target:
 
 ```bash
-php bin/mageos new ../preview \
+php bin/hephaestus new ../preview \
   --profile=mageos-full \
   --dry-run \
   --format=json
@@ -35,7 +35,7 @@ Interactive runs show a review before generation. JSON output is better for CI o
 Pass a release supported by the catalog:
 
 ```bash
-php bin/mageos new ../mageos-4 \
+php bin/hephaestus new ../mageos-4 \
   --release=4.0.0 \
   --no-interaction \
   --no-install
@@ -48,7 +48,7 @@ The current catalog includes `latest`, `4.0.0`, and `3.5.0`. Check the repositor
 Profiles establish a starting composition. Profile groups select mutually exclusive choices such as theme, checkout, and search:
 
 ```bash
-php bin/mageos new ../headless \
+php bin/hephaestus new ../headless \
   --profile=mageos-headless \
   --profile-group=theme:hyva \
   --no-install
@@ -61,7 +61,7 @@ The syntax is `group:option`. An unavailable or incompatible option falls back t
 Add an optional package family or remove a set from a subtractive composition:
 
 ```bash
-php bin/mageos new ../custom \
+php bin/hephaestus new ../custom \
   --profile=mageos-full \
   --enable-addon=yireo-emailtester \
   --disable-set=sample-data \
@@ -75,7 +75,7 @@ Add-ons may add Composer repositories or follow-up instructions. Read the final 
 Generate the project and install later:
 
 ```bash
-php bin/mageos new ../my-project --no-install
+php bin/hephaestus new ../my-project --no-install
 cd ../my-project
 composer install
 ```
@@ -87,7 +87,7 @@ This is useful when you want to review or edit the generated Composer configurat
 Use JSON output for automation:
 
 ```bash
-php bin/mageos new ../my-project \
+php bin/hephaestus new ../my-project \
   --no-interaction \
   --dry-run \
   --format=json > plan.json
@@ -111,7 +111,7 @@ Use existing definitions as templates. Keep catalog data declarative; put select
 Start with the error and status:
 
 ```bash
-php bin/mageos new ../my-project --format=json
+php bin/hephaestus new ../my-project --format=json
 ```
 
 Common causes are an unsupported release, unknown profile or catalog key, an existing non-empty target, missing Composer credentials, or repository/network failure. Use `--dry-run` to separate selection errors from Composer and filesystem errors.

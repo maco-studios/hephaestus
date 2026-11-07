@@ -8,15 +8,15 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
- * @see https://github.com/maco-studios/mage-os-installer
+ * @see https://github.com/maco-studios/hephaestus
  */
 
-use MageOsInstaller\Domain\Planning\ProjectPlanner;
-use MageOsInstaller\Domain\Selection\ProjectSelection;
-use MageOsInstaller\Domain\Selection\SelectionResolver;
-use MageOsInstaller\Infrastructure\Catalog\DefinitionLoader;
+use Hephaestus\Domain\Planning\ProjectPlanner;
+use Hephaestus\Domain\Selection\ProjectSelection;
+use Hephaestus\Domain\Selection\SelectionResolver;
+use Hephaestus\Infrastructure\Catalog\DefinitionLoader;
 
-function matrixCatalog(): \MageOsInstaller\Domain\Catalog\Catalog
+function matrixCatalog(): \Hephaestus\Domain\Catalog\Catalog
 {
     return new DefinitionLoader(__DIR__ . '/../../../resources/definitions')->load();
 }

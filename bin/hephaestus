@@ -5,6 +5,6 @@ declare(strict_types=1);
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-use MageOsInstaller\Presentation\ConsoleApplication;
+use Hephaestus\Presentation\ConsoleApplication;
 
 exit((new ConsoleApplication())->run());

@@ -1,6 +1,6 @@
-# Contributing to Mage-OS Installer
+# Contributing to Hephaestus
 
-Thank you for contributing. Mage-OS Installer is a PHP CLI project that turns the MageOS Maker composition model into a guided Mage-OS project factory.
+Thank you for contributing. Hephaestus is a PHP CLI project that turns the MageOS Maker composition model into a guided Mage-OS project factory.
 
 ## Before you start
 
@@ -12,7 +12,7 @@ Thank you for contributing. Mage-OS Installer is a PHP CLI project that turns th
 
 ```bash
 git clone <repository-url>
-cd mage-os-installer
+cd hephaestus
 composer install
 ```
 

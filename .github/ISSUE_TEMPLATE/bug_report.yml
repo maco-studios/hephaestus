@@ -1,5 +1,5 @@
 name: Bug report
-description: Something in Mage-OS Installer is not working as expected.
+description: Something in Hephaestus is not working as expected.
 labels: [bug]
 body:
   - type: textarea
@@ -15,7 +15,7 @@ body:
       label: Steps to reproduce
       description: Include the exact commands and wizard selections.
       placeholder: |
-        1. php bin/mageos new ...
+        1. php bin/hephaestus new ...
         2. Choose the ... profile
         3. ...
     validations:
@@ -30,7 +30,7 @@ body:
     id: installer-version
     attributes:
       label: Installer version
-      placeholder: "composer show maco-studios/mage-os-installer"
+      placeholder: "composer show maco-studios/hephaestus"
     validations:
       required: true
   - type: input

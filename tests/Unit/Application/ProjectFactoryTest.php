@@ -8,19 +8,19 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
- * @see https://github.com/maco-studios/mage-os-installer
+ * @see https://github.com/maco-studios/hephaestus
  */
 
-use MageOsInstaller\Application\ProjectFactory;
-use MageOsInstaller\Domain\Planning\ProjectPlanner;
-use MageOsInstaller\Domain\Selection\ProjectSelection;
-use MageOsInstaller\Domain\Selection\SelectionResolver;
-use MageOsInstaller\Infrastructure\Catalog\DefinitionLoader;
-use MageOsInstaller\Infrastructure\Composer\ComposerInstaller;
-use MageOsInstaller\Infrastructure\Composer\ComposerJsonRenderer;
-use MageOsInstaller\Infrastructure\Filesystem\ProjectWriter;
-use MageOsInstaller\Infrastructure\Filesystem\TargetDirectory;
-use MageOsInstaller\Infrastructure\Process\ProcessRunner;
+use Hephaestus\Application\ProjectFactory;
+use Hephaestus\Domain\Planning\ProjectPlanner;
+use Hephaestus\Domain\Selection\ProjectSelection;
+use Hephaestus\Domain\Selection\SelectionResolver;
+use Hephaestus\Infrastructure\Catalog\DefinitionLoader;
+use Hephaestus\Infrastructure\Composer\ComposerInstaller;
+use Hephaestus\Infrastructure\Composer\ComposerJsonRenderer;
+use Hephaestus\Infrastructure\Filesystem\ProjectWriter;
+use Hephaestus\Infrastructure\Filesystem\TargetDirectory;
+use Hephaestus\Infrastructure\Process\ProcessRunner;
 
 function withFactoryFakeComposer(callable $callback, int $exitCode = 0): void
 {

@@ -8,10 +8,10 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
- * @see https://github.com/maco-studios/mage-os-installer
+ * @see https://github.com/maco-studios/hephaestus
  */
 
-use MageOsInstaller\Domain\Selection\ProjectSelection;
+use Hephaestus\Domain\Selection\ProjectSelection;
 
 it('preserves the wizard installation preference in the project selection', function (): void {
     $selection = new ProjectSelection('latest', install: false);
@@ -20,5 +20,5 @@ it('preserves the wizard installation preference in the project selection', func
 });
 
 it('rejects unsupported installation modes', function (): void {
-    new \MageOsInstaller\Domain\Selection\ProjectSelection('latest', mode: 'invalid');
+    new \Hephaestus\Domain\Selection\ProjectSelection('latest', mode: 'invalid');
 })->throws(InvalidArgumentException::class);

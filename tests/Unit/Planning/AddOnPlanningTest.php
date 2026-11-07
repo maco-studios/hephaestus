@@ -8,12 +8,12 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
- * @see https://github.com/maco-studios/mage-os-installer
+ * @see https://github.com/maco-studios/hephaestus
  */
 
-use MageOsInstaller\Domain\Planning\ProjectPlanner;
-use MageOsInstaller\Domain\Selection\ProjectSelection;
-use MageOsInstaller\Infrastructure\Catalog\DefinitionLoader;
+use Hephaestus\Domain\Planning\ProjectPlanner;
+use Hephaestus\Domain\Selection\ProjectSelection;
+use Hephaestus\Infrastructure\Catalog\DefinitionLoader;
 
 it('adds optional packages and notes to the project plan', function (): void {
     $catalog = new DefinitionLoader(__DIR__ . '/../../../resources/definitions')->load();

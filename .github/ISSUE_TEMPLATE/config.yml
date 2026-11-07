@@ -1,7 +1,7 @@
 blank_issues_enabled: false
 contact_links:
   - name: Documentation and usage
-    url: https://github.com/maco-studios/mage-os-installer/tree/master/docs
+    url: https://github.com/maco-studios/hephaestus/tree/master/docs
     about: Check the tutorials, how-to guides, and reference documentation before opening an issue.
   - name: Mage-OS project support
     url: https://github.com/mage-os/mageos

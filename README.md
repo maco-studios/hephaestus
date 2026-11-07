@@ -1,15 +1,15 @@
-# Mage-OS Installer
+# Hephaestus
 
-[![Coverage](.github/assets/coverage.svg)](https://github.com/maco-studios/mage-os-installer/actions/workflows/tests.yml)
+[![Coverage](.github/assets/coverage.svg)](https://github.com/maco-studios/hephaestus/actions/workflows/tests.yml)
 [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?logo=buymeacoffee&logoColor=000000&style=for-the-badge)](https://buymeacoffee.com/macosauresx)
 
-[![Installer preview](https://raw.githubusercontent.com/maco-studios/mage-os-installer/master/.github/assets/video/preview.gif)](https://raw.githubusercontent.com/maco-studios/mage-os-installer/master/.github/assets/video/preview.mp4)
+[![Installer preview](https://raw.githubusercontent.com/maco-studios/hephaestus/master/.github/assets/video/preview.gif)](https://raw.githubusercontent.com/maco-studios/hephaestus/master/.github/assets/video/preview.mp4)
 
-[Open the full installer video](https://raw.githubusercontent.com/maco-studios/mage-os-installer/master/.github/assets/video/preview.mp4)
+[Open the full installer video](https://raw.githubusercontent.com/maco-studios/hephaestus/master/.github/assets/video/preview.mp4)
 
 Create a tailored, standalone Mage-OS project through an interactive terminal wizard.
 
-> Mage-OS Installer is pre-1.0. Catalog entries, CLI options, and generated-project conventions may change between releases.
+> Hephaestus is pre-1.0. Catalog entries, CLI options, and generated-project conventions may change between releases.
 
 ## Requirements
 
@@ -23,7 +23,7 @@ Create a tailored, standalone Mage-OS project through an interactive terminal wi
 Run this from the directory where you want the project:
 
 ```bash
-composer create-project maco-studios/mage-os-installer
+composer create-project maco-studios/hephaestus
 ```
 
 The wizard asks for the project name, Mage-OS release, profile, theme, checkout, search engine, feature sets, add-ons, and whether to install dependencies. It then generates the project and shows the final project path.
@@ -31,7 +31,7 @@ The wizard asks for the project name, Mage-OS release, profile, theme, checkout,
 To choose the bootstrap directory explicitly:
 
 ```bash
-composer create-project maco-studios/mage-os-installer my-mageos-project
+composer create-project maco-studios/hephaestus my-mageos-project
 ```
 
 Answer “No” to dependency installation if you want to review the generated `composer.json` first. Run `composer install` inside the generated project when ready.
@@ -41,7 +41,7 @@ Answer “No” to dependency installation if you want to review the generated `
 Use the CLI directly for scripted runs:
 
 ```bash
-php bin/mageos new my-mageos-project \
+php bin/hephaestus new my-mageos-project \
   --profile=mageos-minimal \
   --no-install
 ```
@@ -49,13 +49,13 @@ php bin/mageos new my-mageos-project \
 Inspect a composition without writing files:
 
 ```bash
-php bin/mageos new my-mageos-project \
+php bin/hephaestus new my-mageos-project \
   --no-interaction \
   --dry-run \
   --format=json
 ```
 
-Run `php bin/mageos new --help` for all options, including releases, profile groups, disabled sets, and add-ons.
+Run `php bin/hephaestus new --help` for all options, including releases, profile groups, disabled sets, and add-ons.
 
 ## What it configures
 
@@ -78,13 +78,13 @@ The generated `composer.json` contains the resolved dependencies and replacement
 
 ## Contributing
 
-Report bugs and catalog corrections through [GitHub Issues](https://github.com/maco-studios/mage-os-installer/issues). Do not commit credentials, `auth.json`, generated `vendor/` directories, or generated projects.
+Report bugs and catalog corrections through [GitHub Issues](https://github.com/maco-studios/hephaestus/issues). Do not commit credentials, `auth.json`, generated `vendor/` directories, or generated projects.
 
 ## Acknowledgements
 
 With gratitude to [Cresset Tools and the MageOS Maker contributors](https://github.com/cresset-tools/mageos-maker), whose work provided the foundation and inspiration for this project.
 
-If you enjoy Mage-OS Installer, please visit the original project, learn more about MageOS Maker, and support or contribute to the work that made this possible.
+If you enjoy Hephaestus, please visit the original project, learn more about MageOS Maker, and support or contribute to the work that made this possible.
 
 ## License
 

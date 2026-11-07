@@ -8,10 +8,10 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
- * @see https://github.com/maco-studios/mage-os-installer
+ * @see https://github.com/maco-studios/hephaestus
  */
 
-use MageOsInstaller\Application\Wizard\PromptOptionLabels;
+use Hephaestus\Application\Wizard\PromptOptionLabels;
 
 it('keeps short labels unchanged', function (): void {
     expect(PromptOptionLabels::short('GraphQL API'))->toBe('GraphQL API');

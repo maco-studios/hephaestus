@@ -8,12 +8,12 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
- * @see https://github.com/maco-studios/mage-os-installer
+ * @see https://github.com/maco-studios/hephaestus
  */
 
-namespace MageOsInstaller\Application\Handoff;
+namespace Hephaestus\Application\Handoff;
 
-use MageOsInstaller\Domain\Installation\InstallationResult;
+use Hephaestus\Domain\Installation\InstallationResult;
 
 final class HandoffRenderer
 {
@@ -75,7 +75,7 @@ final class HandoffRenderer
         $lines[] = '<fg=magenta>✦</> Build something amazing with Mage-OS!';
         $lines[] = '';
         $lines[] = '<fg=yellow>★</> Enjoyed the installer? Star our repository:';
-        $lines[] = '   <href=https://github.com/maco-studios/mage-os-installer>github.com/maco-studios/mage-os-installer</>';
+        $lines[] = '   <href=https://github.com/maco-studios/hephaestus>github.com/maco-studios/hephaestus</>';
 
         return implode("\n", $lines) . "\n";
     }

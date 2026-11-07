@@ -1,5 +1,5 @@
 {
-    "name": "maco-studios/mage-os-installer",
+    "name": "maco-studios/hephaestus",
     "description": "An interactive Mage-OS project installer and Composer project factory.",
     "license": "MIT",
     "type": "project",
@@ -22,11 +22,11 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "MageOsInstaller\\": "src/"
+            "Hephaestus\\": "src/"
         }
     },
     "bin": [
-        "bin/mageos"
+        "bin/hephaestus"
     ],
     "config": {
         "allow-plugins": {
@@ -41,7 +41,7 @@
         "post-update-cmd": [
             "@composer normalize"
         ],
-        "post-create-project-cmd": "MageOsInstaller\\Infrastructure\\Composer\\BootstrapScript::postCreateProject",
+        "post-create-project-cmd": "Hephaestus\\Infrastructure\\Composer\\BootstrapScript::postCreateProject",
         "ci:check": [
             "@lint",
             "@rector",

@@ -30,7 +30,7 @@ Creates a tailored Mage-OS project. In interactive mode, the first question asks
 Inspect the installed command for the authoritative option list:
 
 ```bash
-php bin/mageos new --help
+php bin/hephaestus new --help
 ```
 
 ## Composition concepts
@@ -82,11 +82,11 @@ The application reads these environment variables:
 
 | Variable | Default | Purpose |
 | --- | --- | --- |
-| `MAGEOS_CATALOG_URL` | `https://repo.mage-os.org/packages.json` | Remote catalog source. |
-| `MAGEOS_REPOSITORY_URL` | `https://repo.mage-os.org/` | Composer repository used for project bootstrap. |
-| `MAGEOS_INSTALLER_SKIP=1` | unset | Skips the post-create-project wizard hook. |
+| `HEPHAESTUS_CATALOG_URL` | `https://repo.mage-os.org/packages.json` | Remote catalog source. |
+| `HEPHAESTUS_REPOSITORY_URL` | `https://repo.mage-os.org/` | Composer repository used for project bootstrap. |
+| `HEPHAESTUS_SKIP=1` | unset | Skips the post-create-project wizard hook. |
 
-The local cache is stored under `var/cache/mageos`.
+The local cache is stored under `var/cache/hephaestus`.
 
 ## Catalog definition shape
 

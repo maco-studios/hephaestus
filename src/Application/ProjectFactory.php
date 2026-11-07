@@ -8,18 +8,18 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
- * @see https://github.com/maco-studios/mage-os-installer
+ * @see https://github.com/maco-studios/hephaestus
  */
 
-namespace MageOsInstaller\Application;
+namespace Hephaestus\Application;
 
-use MageOsInstaller\Domain\Installation\InstallationResult;
-use MageOsInstaller\Domain\Planning\ProjectPlanner;
-use MageOsInstaller\Domain\Selection\ProjectSelection;
-use MageOsInstaller\Domain\Selection\SelectionResolver;
-use MageOsInstaller\Infrastructure\Composer\ComposerInstaller;
-use MageOsInstaller\Infrastructure\Filesystem\ProjectWriter;
-use MageOsInstaller\Infrastructure\Filesystem\TargetDirectory;
+use Hephaestus\Domain\Installation\InstallationResult;
+use Hephaestus\Domain\Planning\ProjectPlanner;
+use Hephaestus\Domain\Selection\ProjectSelection;
+use Hephaestus\Domain\Selection\SelectionResolver;
+use Hephaestus\Infrastructure\Composer\ComposerInstaller;
+use Hephaestus\Infrastructure\Filesystem\ProjectWriter;
+use Hephaestus\Infrastructure\Filesystem\TargetDirectory;
 
 final readonly class ProjectFactory
 {
