@@ -3,9 +3,9 @@
 [![Coverage](.github/assets/coverage.svg)](https://github.com/maco-studios/mage-os-installer/actions/workflows/tests.yml)
 [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?logo=buymeacoffee&logoColor=000000&style=for-the-badge)](https://buymeacoffee.com/macosauresx)
 
-<video src=".github/assets/video/preview.mp4" controls muted playsinline width="100%">
-  <a href=".github/assets/video/preview.mp4">Watch the installer preview</a>
-</video>
+[![Installer preview](.github/assets/video/preview.gif)](https://raw.githubusercontent.com/maco-studios/mage-os-installer/master/.github/assets/video/preview.mp4)
+
+[Open the full installer video](https://raw.githubusercontent.com/maco-studios/mage-os-installer/master/.github/assets/video/preview.mp4)
 
 Create a tailored, standalone Mage-OS project through an interactive terminal wizard.
 
